@@ -10,7 +10,6 @@ const values = [
 ];
 
 const highlights = [
-  "Established September 30, 2023 — growing stronger every year",
   "Located at No. 35 Ndele Street, Bishop House, D-Line, Port Harcourt",
   "Registered and licensed educational consultancy firm",
   "Partnerships with 50+ accredited universities worldwide",
@@ -39,7 +38,7 @@ export default function About() {
             className="relative"
           >
             {/* Main image card */}
-            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-emerald-600 to-teal-700 aspect-[4/3] shadow-2xl shadow-emerald-500/20">
+            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-emerald-600 to-teal-700 aspect-4/4 shadow-2xl shadow-emerald-500/20">
               <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-white text-center">
                 <div className="text-7xl mb-4" aria-hidden="true">🎓</div>
                 <p className="text-2xl font-black">Established</p>
@@ -58,7 +57,7 @@ export default function About() {
             </div>
 
             {/* Value cards */}
-            <div className="grid grid-cols-3 gap-3 mt-4">
+            {/* <div className="grid grid-cols-3 gap-3 mt-4">
               {values.map((v, i) => {
                 const Icon = v.icon;
                 return (
@@ -71,7 +70,7 @@ export default function About() {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
           </motion.div>
 
           {/* Right: Content */}
@@ -92,8 +91,7 @@ export default function About() {
             </h2>
 
             <p className="text-gray-600 dark:text-gray-300 mb-5 leading-relaxed">
-              Xlinks Educational Consult is a leading study abroad agency established on 30th September 2023
-              in Port Harcourt, Nigeria. We are your one-stop solution for everything you need to study
+              Xlinks Educational Consult is a leading study abroad agency in Nigeria. We are your one-stop solution for everything you need to study
               internationally — from securing admission to settling abroad.
             </p>
 

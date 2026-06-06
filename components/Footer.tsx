@@ -113,8 +113,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed mb-5">
-              Nigeria&apos;s premier study abroad agency. We turn your global education dreams into reality —
-              one student at a time.
+              Nigeria&apos;s premier study abroad agency. We turn your global education dreams into reality.
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex items-start gap-2">

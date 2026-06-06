@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Users, Globe, Building2, Trophy, TrendingUp } from "lucide-react";
+import { Users, Globe, Building2, TrendingUp } from "lucide-react";
 
 const stats = [
   {
@@ -40,15 +40,15 @@ const stats = [
     color: "text-cyan-600 dark:text-cyan-400",
     bg: "bg-cyan-100 dark:bg-cyan-950/50",
   },
-  {
-    icon: Trophy,
-    value: 2,
-    suffix: "+ yrs",
-    label: "Years of Excellence",
-    description: "Established September 30, 2023",
-    color: "text-emerald-600 dark:text-emerald-400",
-    bg: "bg-emerald-100 dark:bg-emerald-950/50",
-  },
+  // {
+  //   icon: Trophy,
+  //   value: 2,
+  //   suffix: "+ yrs",
+  //   label: "Years of Excellence",
+  //   description: "Established September 30, 2023",
+  //   color: "text-emerald-600 dark:text-emerald-400",
+  //   bg: "bg-emerald-100 dark:bg-emerald-950/50",
+  // },
 ];
 
 function CountUp({ target, suffix }: { target: number; suffix: string }) {
@@ -88,7 +88,7 @@ export default function Stats() {
       ref={ref}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
           {stats.map((stat, i) => {
             const Icon = stat.icon;
             return (

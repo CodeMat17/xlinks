@@ -93,7 +93,7 @@ export default function Hero() {
               className="text-lg text-white/75 mb-8 max-w-lg leading-relaxed"
             >
               Expert admissions, visa processing, language training, and travel support,
-              everything you need to study abroad, all in one place since 2023.
+              everything you need to study abroad, all in one place.
             </motion.p>
 
             {/* CTA Buttons */}
