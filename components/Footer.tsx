@@ -109,9 +109,9 @@ export default function Footer() {
             <div className='flex items-center gap-2.5 mb-4'>
                <Image
                         alt='Xlinks Educational Consult logo'
-                        src='/xlinks_logo.jpg'
-                        width={60}
-                        height={60}
+                        src='/xlinks_logo.webp'
+                        width={50}
+                        height={50}
                         className='rounded-3xl object-cover'
                         priority
                       />

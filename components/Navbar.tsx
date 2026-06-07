@@ -71,10 +71,10 @@ export default function Navbar() {
             aria-label='Xlinks Educational Consult – Home'>
             <Image
               alt='Xlinks Educational Consult logo'
-              src='/xlinks_logo.jpg'
-              width={50}
-              height={50}
-              className='rounded-3xl object-cover'
+              src='/xlinks_logo.webp'
+              width={40}
+              height={40}
+              className='object-cover'
               priority
             />
 
