@@ -113,7 +113,7 @@ export default function Destinations() {
           className="text-center mb-14"
         >
           <span className="inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
-            Study Destinations
+            Study &amp; Travel Destinations
           </span>
           <h2
             id="destinations-heading"
@@ -122,8 +122,9 @@ export default function Destinations() {
             Explore <span className="gradient-text">11 Countries</span>
           </h2>
           <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-            We have partner universities and placement expertise across these world-class destinations.
-            Your dream country is just a consultation away.
+            From university placements to holiday getaways, we have partner universities, tour
+            operators, and placement expertise across these world-class destinations. Your dream
+            country — for study or travel — is just a consultation away.
           </p>
         </motion.div>
 

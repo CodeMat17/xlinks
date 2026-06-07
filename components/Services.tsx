@@ -2,7 +2,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import {
-  GraduationCap, FileCheck, Languages, Plane, Home, Car, FileStack, Shield,
+  GraduationCap, FileCheck, Languages, Plane, Home, Car, FileStack, Shield, Map,
 } from "lucide-react";
 
 const services = [
@@ -40,17 +40,27 @@ const services = [
     icon: Plane,
     title: "Flight Booking",
     description:
-      "Competitive flight deals and booking assistance to your study destination. Group and private travel arrangements available.",
+      "Competitive flight deals and booking assistance for study, business, or leisure travel. Group and private travel arrangements available.",
     color: "from-cyan-500 to-teal-600",
     bg: "bg-cyan-50 dark:bg-cyan-950/30",
     iconColor: "text-cyan-600 dark:text-cyan-400",
     highlight: false,
   },
   {
-    icon: Home,
-    title: "Accommodation",
+    icon: Map,
+    title: "Tours & Holiday Packages",
     description:
-      "Pre-arrival accommodation search and booking in student halls, shared apartments, or homestay programs near your campus.",
+      "Custom-designed vacation, sightseeing, and group tour packages to top destinations worldwide — for individuals, families, and corporate groups.",
+    color: "from-emerald-500 to-cyan-600",
+    bg: "bg-emerald-50 dark:bg-emerald-950/30",
+    iconColor: "text-emerald-600 dark:text-emerald-400",
+    highlight: false,
+  },
+  {
+    icon: Home,
+    title: "Accommodation & Hotel Booking",
+    description:
+      "Accommodation search and booking — student halls, shared apartments, and homestays, plus hotel reservations for vacations and business trips.",
     color: "from-emerald-600 to-green-500",
     bg: "bg-emerald-50 dark:bg-emerald-950/30",
     iconColor: "text-emerald-600 dark:text-emerald-400",
@@ -118,8 +128,8 @@ export default function Services() {
             <span className="gradient-text">One Destination</span>
           </h2>
           <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-            From first enquiry to landing abroad — we handle everything. Xlinks is your one-stop
-            solution for all study abroad and travel needs.
+            From first enquiry to landing abroad and your next holiday — we handle everything.
+            Xlinks is your one-stop solution for all education and travel needs.
           </p>
         </motion.div>
 

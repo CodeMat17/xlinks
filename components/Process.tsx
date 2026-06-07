@@ -33,7 +33,7 @@ const steps = [
     icon: Plane,
     title: "Fly & Thrive",
     description:
-      "We arrange your flights, accommodation, airport pickup, and travel insurance. Even after you land, our team stays in touch to support your transition abroad.",
+      "Whether you're relocating to study or heading off on a holiday, we arrange your flights, accommodation, airport pickup, and travel insurance — and stay in touch after you land.",
     color: "from-cyan-500 to-teal-600",
   },
 ];

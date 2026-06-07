@@ -11,27 +11,28 @@ const nunito = Nunito({
 });
 
 const siteUrl = "https://xlinkseducationalandtravels.org";
-const siteName = "Xlinks Educational Consult";
+const siteName = "Xlinks Educational & Travel Consult";
 const siteDescription =
-  "Nigeria's premier study abroad agency in Port Harcourt. Expert visa processing, university admissions, IELTS preparation, and language training for UK, Canada, USA, Australia & 11 countries. Start your global education journey today.";
+  "Nigeria's premier study abroad and travel agency in Port Harcourt. Expert visa processing, university admissions, IELTS preparation, language training, flight booking, and holiday & tour packages for UK, Canada, USA, Australia & 11 countries. Start your global education and travel journey today.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteName} | Study Abroad Agency – Port Harcourt, Nigeria`,
+    default: `${siteName} | Study Abroad & Travel Agency – Port Harcourt, Nigeria`,
     template: `%s | ${siteName}`,
   },
   description: siteDescription,
   keywords: [
     "study abroad agency Nigeria",
     "study abroad Port Harcourt",
+    "travel agency Port Harcourt",
     "UK student visa Nigeria",
     "Canada study visa Nigeria",
     "Australia student visa Nigeria",
     "IELTS preparation Port Harcourt",
     "university admissions Nigeria",
-    "educational consult Port Harcourt",
-    "Xlinks Educational Consult",
+    "educational and travel consult Port Harcourt",
+    "Xlinks Educational and Travel Consult",
     "study in UK from Nigeria",
     "study in Canada from Nigeria",
     "visa processing Nigeria",
@@ -39,6 +40,8 @@ export const metadata: Metadata = {
     "study abroad Rivers State",
     "German language classes Port Harcourt",
     "French language classes Port Harcourt",
+    "holiday and tour packages Nigeria",
+    "flight booking Nigeria",
     "travel insurance Nigeria",
     "airport pickup abroad",
   ],
@@ -60,33 +63,33 @@ export const metadata: Metadata = {
     locale: "en_NG",
     url: siteUrl,
     siteName,
-    title: `${siteName} | Study Abroad Agency – Port Harcourt, Nigeria`,
+    title: `${siteName} | Study Abroad & Travel Agency – Port Harcourt, Nigeria`,
     description: siteDescription,
     images: [
       {
         url: `/opengraph-image.jpg`,
         width: 1200,
         height: 630,
-        alt: `${siteName} – Your Gateway to Global Education`,
+        alt: `${siteName} – Your Gateway to Education & Travel`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} | Study Abroad Agency`,
+    title: `${siteName} | Study Abroad & Travel Agency`,
     description: siteDescription,
     images: [`/opengraph-image.jpg`],
   },
   alternates: {
     canonical: siteUrl,
   },
-  category: "Education",
+  category: "Education & Travel",
   verification: {},
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "EducationalOrganization",
+  "@type": "TravelAgency",
   name: siteName,
   url: siteUrl,
   logo: `${siteUrl}/logo.png`,
@@ -129,7 +132,10 @@ const jsonLd = {
     "Visa Processing",
     "IELTS Preparation",
     "Language Training",
-    "Travel Services",
+    "Flight Booking",
+    "Tours & Holiday Packages",
+    "Accommodation & Hotel Booking",
+    "Travel Insurance",
   ],
 };
 

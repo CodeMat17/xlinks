@@ -17,8 +17,8 @@ const serviceLinks = [
   { href: "#services", label: "Visa Processing" },
   { href: "#services", label: "IELTS Preparation" },
   { href: "#services", label: "Flight Booking" },
-  { href: "#services", label: "Accommodation" },
-  { href: "#services", label: "Document Authentication" },
+  { href: "#services", label: "Tours & Holiday Packages" },
+  { href: "#services", label: "Accommodation & Hotel Booking" },
   { href: "#services", label: "Travel Insurance" },
 ];
 
@@ -79,12 +79,12 @@ export default function Footer() {
       <div className='bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-700 py-12 px-4'>
         <div className='max-w-4xl mx-auto text-center'>
           <h2 className='text-2xl sm:text-3xl font-black text-white mb-3'>
-            Your Future is Too Important to Leave to Guesswork
+            Your Future — and Your Next Trip — Deserve the Experts
           </h2>
           <p className='text-emerald-100 mb-6 max-w-xl mx-auto'>
-            Let the experts at Xlinks Educational Consult guide you through
-            partner school placements, comprehensive travel packages, and expert
-            language training.
+            Let the experts at Xlinks Educational &amp; Travel Consult guide you
+            through university placements, visa processing, language training,
+            and unforgettable holiday and tour packages.
           </p>
           <a
             href='#contact'
@@ -108,7 +108,7 @@ export default function Footer() {
           <div className='lg:col-span-1'>
             <div className='flex items-center gap-2.5 mb-4'>
                <Image
-                        alt='Xlinks Educational Consult logo'
+                        alt='Xlinks Educational & Travel Consult logo'
                         src='/xlinks_logo.webp'
                         width={50}
                         height={50}
@@ -121,13 +121,13 @@ export default function Footer() {
                   XLINKS
                 </span>
                 <span className='block text-[10px] font-semibold text-teal-400 tracking-widest uppercase -mt-0.5'>
-                  Educational Consult
+                  Education &amp; Travels
                 </span>
               </div>
             </div>
             <p className='text-sm text-gray-400 leading-relaxed mb-5'>
-              Nigeria&apos;s premier study abroad agency. We turn your global
-              education dreams into reality.
+              Nigeria&apos;s premier study abroad and travel agency. We turn your
+              global education and travel dreams into reality.
             </p>
             <div className='space-y-2 text-sm'>
               <div className='flex items-start gap-2'>
@@ -258,7 +258,7 @@ export default function Footer() {
           <p>
             © {currentYear}{" "}
             <span className='text-emerald-500 font-semibold'>
-              Xlinks Educational Consult
+              Xlinks Educational &amp; Travel Consult
             </span>
             . All rights reserved.
           </p>

@@ -32,6 +32,13 @@ const team = [
     bio: "Certified IELTS and French language instructor committed to students achieving their target scores.",
     color: "from-cyan-500 to-teal-600",
   },
+  {
+    name: "Team Member",
+    role: "Travel & Tours Lead",
+    initials: "TT",
+    bio: "Plans flights, holidays, and tour packages with an eye for detail, helping clients explore the world stress-free.",
+    color: "from-emerald-600 to-green-500",
+  },
 ];
 
 export default function Team() {
@@ -64,11 +71,11 @@ export default function Team() {
           </h2>
           <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
             Our dedicated team of professionals brings together decades of combined experience in
-            international education, visa processing, and language training.
+            international education, visa processing, language training, and travel planning.
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {team.map((member, i) => (
             <motion.article
               key={i}

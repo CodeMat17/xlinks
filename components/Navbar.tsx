@@ -16,7 +16,7 @@ const navLinks = [
       { href: "#admissions", label: "Admissions" },
       { href: "#visa", label: "Visa Processing" },
       { href: "#language", label: "Language Training" },
-      { href: "#travel", label: "Travel Services" },
+      { href: "#destinations", label: "Tours & Holidays" },
     ],
   },
   { href: "#destinations", label: "Destinations" },
@@ -68,9 +68,9 @@ export default function Navbar() {
               scrollTo("#home");
             }}
             className='flex items-center gap-2.5 group flex-shrink-0'
-            aria-label='Xlinks Educational Consult – Home'>
+            aria-label='Xlinks Educational & Travel Consult – Home'>
             <Image
-              alt='Xlinks Educational Consult logo'
+              alt='Xlinks Educational & Travel Consult logo'
               src='/xlinks_logo.webp'
               width={40}
               height={40}
@@ -83,7 +83,7 @@ export default function Navbar() {
                 XLINKS
               </span>
               <span className='block text-[10px] font-semibold text-teal-600 dark:text-teal-400 tracking-widest uppercase -mt-0.5'>
-                Educational Consult
+                Education &amp; Travels
               </span>
             </div>
           </a>

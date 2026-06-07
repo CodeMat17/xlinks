@@ -4,17 +4,18 @@ import { motion, useInView } from "framer-motion";
 import { CheckCircle2, Target, Eye, Heart } from "lucide-react";
 
 const values = [
-  { icon: Target, label: "Mission", text: "To bridge the gap between ambitious Nigerian students and world-class institutions by providing honest, expert, and affordable study abroad consultancy." },
-  { icon: Eye, label: "Vision", text: "To be West Africa's most trusted study abroad agency — transforming lives one student at a time through quality international education placement." },
-  { icon: Heart, label: "Values", text: "Integrity, excellence, student-first service, and continuous support from application to graduation and beyond." },
+  { icon: Target, label: "Mission", text: "To bridge the gap between ambitious Nigerians and world-class institutions and destinations by providing honest, expert, and affordable study abroad and travel consultancy." },
+  { icon: Eye, label: "Vision", text: "To be West Africa's most trusted education and travel agency — transforming lives one journey at a time through quality international placements and unforgettable travel experiences." },
+  { icon: Heart, label: "Values", text: "Integrity, excellence, customer-first service, and continuous support from first enquiry to landing abroad and beyond." },
 ];
 
 const highlights = [
   "Located at No. 35 Ndele Street, Bishop House, D-Line, Port Harcourt",
-  "Registered and licensed educational consultancy firm",
+  "Registered and licensed educational and travel consultancy firm",
   "Partnerships with 50+ accredited universities worldwide",
-  "Dedicated post-visa support and relocation assistance",
+  "Dedicated post-visa support, relocation, and travel assistance",
   "In-house language center for IELTS, French, German & Spanish",
+  "Tailored holiday, tour, and travel packages for individuals and groups",
 ];
 
 export default function About() {
@@ -40,12 +41,12 @@ export default function About() {
             {/* Main image card */}
             <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-emerald-600 to-teal-700 aspect-4/4 shadow-2xl shadow-emerald-500/20">
               <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-white text-center">
-                <div className="text-7xl mb-4" aria-hidden="true">🎓</div>
+                <div className="text-7xl mb-4 flex items-center gap-2" aria-hidden="true"><span>🎓</span><span>✈️</span></div>
                 <p className="text-2xl font-black">Established</p>
                 <p className="text-5xl font-black text-emerald-200">2023</p>
                 <p className="text-sm text-white/70 mt-2">September 30, 2023</p>
                 <p className="text-base font-semibold text-white/90 mt-4 max-w-xs leading-relaxed">
-                  Nigeria&apos;s premier study abroad agency, helping dreams take flight.
+                  Nigeria&apos;s premier study abroad and travel agency, helping dreams take flight.
                 </p>
               </div>
               {/* Decorative dots */}
@@ -87,20 +88,22 @@ export default function About() {
               className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mb-6 leading-tight"
             >
               Nigeria&apos;s Leading{" "}
-              <span className="gradient-text">Study Abroad Partner</span>
+              <span className="gradient-text">Education &amp; Travel Partner</span>
             </h2>
 
             <p className="text-gray-600 dark:text-gray-300 mb-5 leading-relaxed">
-              Xlinks Educational Consult is a leading study abroad agency in Nigeria. We are your one-stop solution for everything you need to study
-              internationally — from securing admission to settling abroad.
+              Xlinks Educational &amp; Travel Consult is a leading study abroad and travel agency in
+              Nigeria. We are your one-stop solution for everything you need to study, explore, and
+              travel internationally — from securing admission to booking your next holiday.
             </p>
 
             <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-              We specialize in recruiting students and helping them pursue their dreams of studying in the{" "}
+              We help students pursue their dreams of studying in the{" "}
               <strong className="text-emerald-700 dark:text-emerald-400">United Kingdom, United States,
-              Canada, Ireland, Australia, Malta, Finland, Austria, China, Cyprus, and New Zealand</strong>.
-              Our commitment doesn&apos;t end when the visa is granted — we follow up with every student
-              through their entire journey.
+              Canada, Ireland, Australia, Malta, Finland, Austria, China, Cyprus, and New Zealand</strong>,
+              and we help travelers plan seamless flights, holidays, and tour packages to destinations
+              around the world. Our commitment doesn&apos;t end at the visa or the booking — we follow up
+              with every client through their entire journey.
             </p>
 
             {/* Highlights */}

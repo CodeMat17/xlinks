@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const PHONE = "2349134523615";
 const MESSAGE = encodeURIComponent(
-  "Hello Xlinks Educational Consult! I'm interested in your study abroad services. I'd like to know more about how you can help me achieve my dream of studying abroad."
+  "Hello Xlinks Educational & Travel Consult! I'm interested in your study abroad and travel services. I'd like to know more about how you can help me with my plans."
 );
 const WA_URL = `https://wa.me/${PHONE}?text=${MESSAGE}`;
 

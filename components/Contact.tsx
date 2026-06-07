@@ -48,7 +48,8 @@ const services = [
   "German Language",
   "Spanish Language",
   "Flight Booking",
-  "Accommodation",
+  "Tours & Holiday Packages",
+  "Accommodation & Hotel Booking",
   "Airport Pickup",
   "Document Authentication",
   "Travel Insurance",
@@ -110,9 +111,9 @@ export default function Contact() {
             Start Your <span className='gradient-text'>Journey Today</span>
           </h2>
           <p className='text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto'>
-            Ready to study abroad? Fill in the form below and one of our expert
-            advisors will get back to you within 24 hours — completely free
-            consultation.
+            Ready to study abroad or plan your next trip? Fill in the form below
+            and one of our expert advisors will get back to you within 24 hours
+            — completely free consultation.
           </p>
         </motion.div>
 
@@ -303,7 +304,7 @@ export default function Contact() {
                       rows={5}
                       value={form.message}
                       onChange={handleChange}
-                      placeholder='Tell us about your study abroad goals, your destination of interest, and any questions you have...'
+                      placeholder='Tell us about your study abroad or travel plans, your destination of interest, and any questions you have...'
                       className='resize-none'
                     />
                   </div>

@@ -87,8 +87,8 @@ export default function LanguageCenter() {
             <span className="gradient-text">Languages</span>
           </h2>
           <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-            Our certified language instructors prepare you for international exams and real-world
-            communication. Classes available in-person and online.
+            Our certified language instructors prepare you for international exams, study abroad
+            requirements, and real-world communication while traveling. Classes available in-person and online.
           </p>
         </motion.div>
 

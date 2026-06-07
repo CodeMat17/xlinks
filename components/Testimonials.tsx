@@ -64,6 +64,16 @@ const testimonials = [
     color: "from-teal-500 to-cyan-600",
     program: "Undergraduate",
   },
+  {
+    name: "Tamuno Briggs",
+    role: "Family Holiday, Dubai & Maldives",
+    country: "🇦🇪 United Arab Emirates",
+    initials: "TB",
+    text: "We booked our entire family vacation through Xlinks — flights, hotels, a Dubai city tour, and a Maldives getaway. Everything was seamless from visa to check-in. Their travel desk handled every detail so we could just relax and enjoy. We're already planning our next trip with them!",
+    rating: 5,
+    color: "from-amber-500 to-orange-600",
+    program: "Holiday & Tour Package",
+  },
 ];
 
 export default function Testimonials() {
@@ -89,17 +99,18 @@ export default function Testimonials() {
           className="text-center mb-14"
         >
           <span className="inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
-            Student Stories
+            Client Stories
           </span>
           <h2
             id="testimonials-heading"
             className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white mb-4"
           >
-            Real Students,{" "}
+            Real Journeys,{" "}
             <span className="gradient-text">Real Success</span>
           </h2>
           <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-            Hundreds of students have transformed their lives through Xlinks. Here are just a few of their stories.
+            Hundreds of students and travelers have trusted Xlinks with their biggest journeys —
+            from university placements to dream holidays. Here are just a few of their stories.
           </p>
         </motion.div>
 

@@ -7,7 +7,7 @@ const destinations = ["United Kingdom", "Canada", "Australia", "United States", 
 
 const floatingCards = [
   { icon: "🎓", label: "500+ Students Placed", color: "from-emerald-500 to-teal-600" },
-  { icon: "🌍", label: "11 Countries", color: "from-teal-500 to-cyan-600" },
+  { icon: "✈️", label: "Tours & Travel Packages", color: "from-teal-500 to-cyan-600" },
   { icon: "⭐", label: "98% Visa Success", color: "from-green-500 to-emerald-600" },
 ];
 
@@ -25,7 +25,7 @@ export default function Hero() {
     <section
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden"
-      aria-label="Welcome to Xlinks Educational Consult"
+      aria-label="Welcome to Xlinks Educational & Travel Consult"
     >
       {/* Background */}
       <div className="absolute inset-0 gradient-bg" aria-hidden="true" />
@@ -53,10 +53,10 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6"
+              className="inline-flex  items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6"
             >
               <MapPin className="w-4 h-4 text-emerald-300" aria-hidden="true" />
-              <span className="text-sm font-semibold text-white/90">The Best Study Abroad Agency</span>
+              <span className="text-sm font-semibold text-white/90">Your Trusted Study Abroad &amp; Travel Partner</span>
             </motion.div>
 
             {/* Headline */}
@@ -67,7 +67,7 @@ export default function Hero() {
               className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-4"
             >
               Your Gateway to
-              <span className="block text-emerald-300">Global Education</span>
+              <span className="block text-emerald-300">Education &amp; Travel</span>
               <span className="block text-2xl sm:text-3xl lg:text-4xl font-bold text-white/80 mt-2">
                 in{" "}
                 <AnimatePresence mode="wait">
@@ -92,8 +92,8 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-white/75 mb-8 max-w-lg leading-relaxed"
             >
-              Expert admissions, visa processing, language training, and travel support,
-              everything you need to study abroad, all in one place.
+              Expert admissions, visa processing, language training, flights, holidays,
+              and tour packages — everything you need to study or travel abroad, all in one place.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -144,7 +144,7 @@ export default function Hero() {
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" aria-hidden="true" />
                   ))}
                 </div>
-                <p className="text-sm text-white/70 font-medium">Trusted by 500+ students</p>
+                <p className="text-sm text-white/70 font-medium">Trusted by 500+ students &amp; travelers</p>
               </div>
             </motion.div>
           </div>
