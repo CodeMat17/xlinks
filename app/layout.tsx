@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: `/og-image.jpg`,
+        url: `/opengraph-image.jpg`,
         width: 1200,
         height: 630,
         alt: `${siteName} – Your Gateway to Global Education`,
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${siteName} | Study Abroad Agency`,
     description: siteDescription,
-    images: [`/og-image.jpg`],
+    images: [`/opengraph-image.jpg`],
   },
   alternates: {
     canonical: siteUrl,

@@ -1,5 +1,6 @@
 "use client";
 import { GraduationCap, MapPin, Phone, Mail, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 const quickLinks = [
   { href: "#home", label: "Home" },
@@ -71,67 +72,92 @@ export default function Footer() {
 
   return (
     <footer
-      className="bg-gray-950 dark:bg-gray-950 text-gray-300"
-      role="contentinfo"
-      aria-label="Site footer"
-    >
+      className='bg-gray-950 dark:bg-gray-950 text-gray-300'
+      role='contentinfo'
+      aria-label='Site footer'>
       {/* CTA Banner */}
-      <div className="bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-700 py-12 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl font-black text-white mb-3">
+      <div className='bg-gradient-to-r from-emerald-700 via-teal-700 to-emerald-700 py-12 px-4'>
+        <div className='max-w-4xl mx-auto text-center'>
+          <h2 className='text-2xl sm:text-3xl font-black text-white mb-3'>
             Your Future is Too Important to Leave to Guesswork
           </h2>
-          <p className="text-emerald-100 mb-6 max-w-xl mx-auto">
-            Let the experts at Xlinks Educational Consult guide you through partner school placements,
-            comprehensive travel packages, and expert language training.
+          <p className='text-emerald-100 mb-6 max-w-xl mx-auto'>
+            Let the experts at Xlinks Educational Consult guide you through
+            partner school placements, comprehensive travel packages, and expert
+            language training.
           </p>
           <a
-            href="#contact"
-            onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-emerald-700 font-bold rounded-xl hover:bg-emerald-50 transition-colors shadow-xl"
-          >
+            href='#contact'
+            onClick={(e) => {
+              e.preventDefault();
+              document
+                .querySelector("#contact")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className='inline-flex items-center gap-2 px-8 py-3.5 bg-white text-emerald-700 font-bold rounded-xl hover:bg-emerald-50 transition-colors shadow-xl'>
             Start Your Journey
-            <ArrowUpRight className="w-5 h-5" aria-hidden="true" />
+            <ArrowUpRight className='w-5 h-5' aria-hidden='true' />
           </a>
         </div>
       </div>
 
       {/* Main footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12'>
           {/* Brand */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
-                <GraduationCap className="w-6 h-6 text-white" aria-hidden="true" />
-              </div>
+          <div className='lg:col-span-1'>
+            <div className='flex items-center gap-2.5 mb-4'>
+               <Image
+                        alt='Xlinks Educational Consult logo'
+                        src='/xlinks_logo.jpg'
+                        width={60}
+                        height={60}
+                        className='rounded-3xl object-cover'
+                        priority
+                      />
+
               <div>
-                <span className="block text-base font-black text-emerald-400 tracking-tight">XLINKS</span>
-                <span className="block text-[10px] font-semibold text-teal-400 tracking-widest uppercase -mt-0.5">
+                <span className='block text-base font-black text-emerald-400 tracking-tight'>
+                  XLINKS
+                </span>
+                <span className='block text-[10px] font-semibold text-teal-400 tracking-widest uppercase -mt-0.5'>
                   Educational Consult
                 </span>
               </div>
             </div>
-            <p className="text-sm text-gray-400 leading-relaxed mb-5">
-              Nigeria&apos;s premier study abroad agency. We turn your global education dreams into reality.
+            <p className='text-sm text-gray-400 leading-relaxed mb-5'>
+              Nigeria&apos;s premier study abroad agency. We turn your global
+              education dreams into reality.
             </p>
-            <div className="space-y-2 text-sm">
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" aria-hidden="true" />
-                <span className="text-gray-400">No. 35 Ndele Street, Bishop House, D-Line, Port Harcourt</span>
+            <div className='space-y-2 text-sm'>
+              <div className='flex items-start gap-2'>
+                <MapPin
+                  className='w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0'
+                  aria-hidden='true'
+                />
+                <span className='text-gray-400'>
+                  No. 35 Ndele Street, Bishop House, D-Line, Port Harcourt
+                </span>
               </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-emerald-500 flex-shrink-0" aria-hidden="true" />
-                <a href="tel:+2349134523615" className="text-gray-400 hover:text-emerald-400 transition-colors">
+              <div className='flex items-center gap-2'>
+                <Phone
+                  className='w-4 h-4 text-emerald-500 flex-shrink-0'
+                  aria-hidden='true'
+                />
+                <a
+                  href='tel:+2349134523615'
+                  className='text-gray-400 hover:text-emerald-400 transition-colors'>
                   +234 913 452 3615
                 </a>
               </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-emerald-500 flex-shrink-0" aria-hidden="true" />
+              <div className='flex items-center gap-2'>
+                <Mail
+                  className='w-4 h-4 text-emerald-500 flex-shrink-0'
+                  aria-hidden='true'
+                />
                 <a
-                  href="mailto:info@xlinkseducationalandtravels.org"
-                  className="text-gray-400 hover:text-emerald-400 transition-colors"
-                >
+                  href='mailto:info@xlinkseducationalandtravels.org'
+                  className='text-gray-400 hover:text-emerald-400 transition-colors'>
                   info@xlinkseducationalandtravels.org
                 </a>
               </div>
@@ -139,17 +165,26 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <nav aria-label="Footer quick links">
-            <h3 className="text-sm font-black text-white uppercase tracking-widest mb-5">Quick Links</h3>
-            <ul className="space-y-2.5" role="list">
+          <nav aria-label='Footer quick links'>
+            <h3 className='text-sm font-black text-white uppercase tracking-widest mb-5'>
+              Quick Links
+            </h3>
+            <ul className='space-y-2.5' role='list'>
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    onClick={(e) => { e.preventDefault(); document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" }); }}
-                    className="text-sm text-gray-400 hover:text-emerald-400 transition-colors flex items-center gap-1.5 group"
-                  >
-                    <span className="w-1 h-1 rounded-full bg-emerald-600 group-hover:bg-emerald-400 transition-colors" aria-hidden="true" />
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document
+                        .querySelector(link.href)
+                        ?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className='text-sm text-gray-400 hover:text-emerald-400 transition-colors flex items-center gap-1.5 group'>
+                    <span
+                      className='w-1 h-1 rounded-full bg-emerald-600 group-hover:bg-emerald-400 transition-colors'
+                      aria-hidden='true'
+                    />
                     {link.label}
                   </a>
                 </li>
@@ -158,17 +193,26 @@ export default function Footer() {
           </nav>
 
           {/* Services */}
-          <nav aria-label="Footer services">
-            <h3 className="text-sm font-black text-white uppercase tracking-widest mb-5">Our Services</h3>
-            <ul className="space-y-2.5" role="list">
+          <nav aria-label='Footer services'>
+            <h3 className='text-sm font-black text-white uppercase tracking-widest mb-5'>
+              Our Services
+            </h3>
+            <ul className='space-y-2.5' role='list'>
               {serviceLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    onClick={(e) => { e.preventDefault(); document.querySelector(link.href)?.scrollIntoView({ behavior: "smooth" }); }}
-                    className="text-sm text-gray-400 hover:text-emerald-400 transition-colors flex items-center gap-1.5 group"
-                  >
-                    <span className="w-1 h-1 rounded-full bg-emerald-600 group-hover:bg-emerald-400 transition-colors" aria-hidden="true" />
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document
+                        .querySelector(link.href)
+                        ?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className='text-sm text-gray-400 hover:text-emerald-400 transition-colors flex items-center gap-1.5 group'>
+                    <span
+                      className='w-1 h-1 rounded-full bg-emerald-600 group-hover:bg-emerald-400 transition-colors'
+                      aria-hidden='true'
+                    />
                     {link.label}
                   </a>
                 </li>
@@ -178,28 +222,30 @@ export default function Footer() {
 
           {/* Destinations + Social */}
           <div>
-            <h3 className="text-sm font-black text-white uppercase tracking-widest mb-5">Destinations</h3>
-            <div className="flex flex-wrap gap-2 mb-8">
+            <h3 className='text-sm font-black text-white uppercase tracking-widest mb-5'>
+              Destinations
+            </h3>
+            <div className='flex flex-wrap gap-2 mb-8'>
               {destinations.map((d) => (
                 <span
                   key={d}
-                  className="text-xs text-gray-400 bg-gray-800 px-2.5 py-1 rounded-full"
-                >
+                  className='text-xs text-gray-400 bg-gray-800 px-2.5 py-1 rounded-full'>
                   {d}
                 </span>
               ))}
             </div>
-            <h3 className="text-sm font-black text-white uppercase tracking-widest mb-4">Follow Us</h3>
-            <div className="flex gap-3">
+            <h3 className='text-sm font-black text-white uppercase tracking-widest mb-4'>
+              Follow Us
+            </h3>
+            <div className='flex gap-3'>
               {socials.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target='_blank'
+                  rel='noopener noreferrer'
                   aria-label={`Follow us on ${social.name}`}
-                  className="w-10 h-10 rounded-xl bg-gray-800 hover:bg-emerald-700 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200"
-                >
+                  className='w-10 h-10 rounded-xl bg-gray-800 hover:bg-emerald-700 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200'>
                   {social.icon}
                 </a>
               ))}
@@ -208,10 +254,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
+        <div className='border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500'>
           <p>
-            © {currentYear} <span className="text-emerald-500 font-semibold">Xlinks Educational Consult</span>.
-            All rights reserved.
+            © {currentYear}{" "}
+            <span className='text-emerald-500 font-semibold'>
+              Xlinks Educational Consult
+            </span>
+            . All rights reserved.
           </p>
           {/* <p className="text-xs">
             Established 30th September 2023 · Port Harcourt, Nigeria
