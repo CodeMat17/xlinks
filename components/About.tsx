@@ -92,7 +92,7 @@ export default function About() {
             </h2>
 
             <p className="text-gray-600 dark:text-gray-300 mb-5 leading-relaxed">
-              Xlinks Educational &amp; Travel Consult is a leading study abroad and travel agency in
+              Xlinks Education and Travel Consult is a leading study abroad and travel agency in
               Nigeria. We are your one-stop solution for everything you need to study, explore, and
               travel internationally — from securing admission to booking your next holiday.
             </p>

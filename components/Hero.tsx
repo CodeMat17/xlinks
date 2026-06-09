@@ -1,13 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Play, MapPin, Star, Users, Award } from "lucide-react";
+import { ArrowRight, Play, MapPin, Star } from "lucide-react";
+import Image from "next/image";
 
 const destinations = ["United Kingdom", "Canada", "Australia", "United States", "Ireland", "New Zealand"];
 
 const floatingCards = [
   { icon: "🎓", label: "500+ Students Placed", color: "from-emerald-500 to-teal-600" },
-  { icon: "✈️", label: "Tours & Travel Packages", color: "from-teal-500 to-cyan-600" },
   { icon: "⭐", label: "98% Visa Success", color: "from-green-500 to-emerald-600" },
 ];
 
@@ -25,7 +25,7 @@ export default function Hero() {
     <section
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden"
-      aria-label="Welcome to Xlinks Educational & Travel Consult"
+      aria-label="Welcome to Xlinks Education and Travel Consult"
     >
       {/* Background */}
       <div className="absolute inset-0 gradient-bg" aria-hidden="true" />
@@ -55,7 +55,7 @@ export default function Hero() {
               transition={{ duration: 0.5 }}
               className="inline-flex  items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6"
             >
-              <MapPin className="w-4 h-4 text-emerald-300" aria-hidden="true" />
+              <MapPin className="hidden sm:block w-4 h-4 text-emerald-300" aria-hidden="true" />
               <span className="text-sm font-semibold text-white/90">Your Trusted Study Abroad &amp; Travel Partner</span>
             </motion.div>
 
@@ -104,16 +104,14 @@ export default function Hero() {
               className="flex flex-wrap gap-4 mb-10"
             >
               <a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}
+                href="/contact"
                 className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-emerald-700 font-bold rounded-xl hover:bg-emerald-50 transition-all duration-200 shadow-xl shadow-black/20 hover:shadow-2xl hover:-translate-y-0.5"
               >
                 Start Your Journey
                 <ArrowRight className="w-5 h-5" aria-hidden="true" />
               </a>
               <a
-                href="#about"
-                onClick={(e) => { e.preventDefault(); document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" }); }}
+                href="/about"
                 className="inline-flex items-center gap-2 px-7 py-3.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white font-bold rounded-xl transition-all duration-200"
               >
                 <Play className="w-4 h-4 fill-current" aria-hidden="true" />
@@ -149,74 +147,56 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right – Decorative Cards */}
-          <div className="hidden lg:block relative" aria-hidden="true">
-            <div className="relative w-full h-[500px]">
-              {/* Central globe */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <div className="w-72 h-72 rounded-full border-2 border-white/10" />
-                <div className="absolute w-56 h-56 rounded-full border border-white/10" />
-                <div className="absolute w-40 h-40 rounded-full border border-white/10" />
-              </motion.div>
+          {/* Right – Hero Image */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="relative flex justify-center lg:justify-end mt-10 lg:mt-0"
+          >
+            {/* Glow ring behind image */}
+            <div className="absolute inset-0 rounded-3xl scale-105" aria-hidden="true" />
 
-              {/* Globe icon */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-emerald-500/30 to-teal-500/30 backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                  <span className="text-6xl" role="img" aria-label="Globe">🌐</span>
-                </div>
-              </div>
+            {/* Image frame */}
+            <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-full rounded-3xl overflow-hidden">
+              <Image
+                src="/hero_image.webp"
+                alt="Students studying and traveling abroad with Xlinks"
+                width={500}
+                height={500}
+                className="w-full h-[340px] sm:h-[420px] lg:h-[500px] object-cover object-center"
+                priority
+              />
+
+              {/* Subtle gradient overlay at bottom for card legibility */}
+              <div className="absolute inset-0" aria-hidden="true" />
 
               {/* Floating stat cards */}
               {floatingCards.map((card, i) => {
                 const positions = [
-                  "top-8 right-4",
-                  "bottom-16 right-0",
-                  "bottom-8 left-4",
+                  "top-4 right-4",
+                  "top-18 right-4",
                 ];
-                const delays = [0.6, 0.8, 1.0];
+                const delays = [0.7, 0.9, 1.1];
                 return (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: delays[i], duration: 0.5 }}
-                    className={`absolute ${positions[i]} bg-white/15 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3 flex items-center gap-3`}
+                    transition={{ delay: delays[i], duration: 0.4 }}
+                    className={`absolute ${positions[i]} bg-white/15 backdrop-blur-md border border-white/25 rounded-2xl px-3 py-2 flex items-center gap-2 shadow-lg`}
                   >
-                    <span className="text-2xl">{card.icon}</span>
-                    <span className="text-sm font-bold text-white whitespace-nowrap">{card.label}</span>
-                  </motion.div>
-                );
-              })}
-
-              {/* Destination pins */}
-              {["🇬🇧", "🇨🇦", "🇦🇺", "🇺🇸", "🇮🇪"].map((flag, i) => {
-                const pinPositions = [
-                  { top: "20%", left: "65%" },
-                  { top: "35%", left: "20%" },
-                  { top: "65%", left: "70%" },
-                  { top: "55%", left: "30%" },
-                  { top: "75%", left: "50%" },
-                ];
-                return (
-                  <motion.div
-                    key={i}
-                    style={pinPositions[i]}
-                    className="absolute flex items-center justify-center"
-                    animate={{ y: [0, -6, 0] }}
-                    transition={{ duration: 2 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-lg">
-                      <span className="text-xl text-white">{flag}</span>
-                    </div>
+                    <span className="text-xl">{card.icon}</span>
+                    <span className="text-xs sm:text-sm font-bold text-white whitespace-nowrap drop-shadow">{card.label}</span>
                   </motion.div>
                 );
               })}
             </div>
-          </div>
+
+            {/* Decorative corner accent */}
+            <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-emerald-400/20 blur-xl" aria-hidden="true" />
+            <div className="absolute -top-4 -left-4 w-16 h-16 rounded-full bg-teal-300/20 blur-xl" aria-hidden="true" />
+          </motion.div>
         </div>
       </div>
 

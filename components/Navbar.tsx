@@ -4,24 +4,26 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 
 const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About Us" },
   {
-    href: "#services",
+    href: "/services",
     label: "Services",
     children: [
-      { href: "#admissions", label: "Admissions" },
-      { href: "#visa", label: "Visa Processing" },
-      { href: "#language", label: "Language Training" },
-      { href: "#destinations", label: "Tours & Holidays" },
+      { href: "/services", label: "Admissions" },
+      { href: "/services", label: "Visa Processing" },
+      { href: "/services#language", label: "Language Training" },
+      { href: "/services#tours", label: "Tours & Holidays" },
     ],
   },
-  { href: "#destinations", label: "Destinations" },
-  { href: "#testimonials", label: "Testimonials" },
-  { href: "#contact", label: "Contact" },
+  { href: "/news", label: "News" },
+  { href: "/faqs", label: "FAQs" },
+  { href: "/contact", label: "Contact Us" },
 ];
 
 export default function Navbar() {
@@ -29,6 +31,9 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   const mounted = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -42,16 +47,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (href: string) => {
-    setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+  const isOpaque = !isHome || scrolled;
+
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
   };
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled
+        isOpaque
           ? "bg-white/95 dark:bg-gray-950/95 backdrop-blur-md shadow-md shadow-emerald-100/50 dark:shadow-emerald-900/20"
           : "bg-transparent"
       }`}
@@ -61,32 +67,45 @@ export default function Navbar() {
         aria-label='Main navigation'>
         <div className='flex items-center justify-between h-16 lg:h-20'>
           {/* Logo */}
-          <a
-            href='#home'
-            onClick={(e) => {
-              e.preventDefault();
-              scrollTo("#home");
-            }}
-            className='flex items-center gap-2.5 group flex-shrink-0'
-            aria-label='Xlinks Educational & Travel Consult – Home'>
+          <Link
+            href='/'
+            className='flex items-center gap-2.5 group shrink-0'
+            aria-label='Xlinks Education and Travel Consult – Home'>
             <Image
-              alt='Xlinks Educational & Travel Consult logo'
+              alt='Xlinks Education and Travel Consult logo'
               src='/xlinks_logo.webp'
               width={40}
               height={40}
               className='object-cover'
               priority
             />
-
             <div className='leading-tight'>
-              <span className='block text-base font-900 font-black text-emerald-700 dark:text-emerald-400 tracking-tight'>
+              <span
+                className={`block text-base font-black tracking-tight transition-colors ${
+                  isOpaque
+                    ? "text-emerald-700 dark:text-emerald-400"
+                    : "text-emerald-300"
+                }`}>
                 XLINKS
               </span>
-              <span className='block text-[10px] font-semibold text-teal-600 dark:text-teal-400 tracking-widest uppercase -mt-0.5'>
-                Education &amp; Travels
+              <span
+                className={`block sm:hidden text-[10px] font-semibold tracking-widest uppercase -mt-0.5 transition-colors ${
+                  isOpaque
+                    ? "text-teal-600 dark:text-teal-400"
+                    : "text-teal-300"
+                }`}>
+                Education and <br />Travel Consult
+              </span>
+              <span
+                className={`hidden sm:block text-[10px] font-semibold tracking-widest uppercase -mt-0.5 transition-colors ${
+                  isOpaque
+                    ? "text-teal-600 dark:text-teal-400"
+                    : "text-teal-300"
+                }`}>
+                Education and Travel Consult
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <ul className='hidden lg:flex items-center gap-1' role='list'>
@@ -96,9 +115,13 @@ export default function Navbar() {
                   <button
                     onClick={() => setServicesOpen(!servicesOpen)}
                     onBlur={() => setTimeout(() => setServicesOpen(false), 150)}
-                    className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-600 font-semibold transition-colors ${
-                      scrolled
-                        ? "text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/50"
+                    className={`flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                      isOpaque
+                        ? `text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 ${
+                            isActive(link.href)
+                              ? "!text-emerald-600 dark:!text-emerald-400"
+                              : ""
+                          }`
                         : "text-white/90 hover:text-white hover:bg-white/10"
                     }`}
                     aria-expanded={servicesOpen}
@@ -120,17 +143,13 @@ export default function Navbar() {
                         role='menu'>
                         {link.children.map((child) => (
                           <li key={child.href} role='none'>
-                            <a
+                            <Link
                               href={child.href}
                               role='menuitem'
-                              onClick={(e) => {
-                                e.preventDefault();
-                                scrollTo(child.href);
-                                setServicesOpen(false);
-                              }}
+                              onClick={() => setServicesOpen(false)}
                               className='block px-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 transition-colors'>
                               {child.label}
-                            </a>
+                            </Link>
                           </li>
                         ))}
                       </motion.ul>
@@ -139,19 +158,19 @@ export default function Navbar() {
                 </li>
               ) : (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollTo(link.href);
-                    }}
                     className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                      scrolled
-                        ? "text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/50"
+                      isOpaque
+                        ? `text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 ${
+                            isActive(link.href)
+                              ? "!text-emerald-600 dark:!text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50"
+                              : ""
+                          }`
                         : "text-white/90 hover:text-white hover:bg-white/10"
                     }`}>
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ),
             )}
@@ -163,7 +182,7 @@ export default function Navbar() {
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className={`p-2.5 rounded-xl transition-colors ${
-                scrolled
+                isOpaque
                   ? "text-gray-600 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/50"
                   : "text-white/80 hover:text-white hover:bg-white/10"
               }`}
@@ -184,22 +203,18 @@ export default function Navbar() {
             </button>
 
             {/* CTA */}
-            <a
-              href='#contact'
-              onClick={(e) => {
-                e.preventDefault();
-                scrollTo("#contact");
-              }}
+            <Link
+              href='/contact'
               className='hidden sm:flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-sm font-bold shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-200'>
               Get Started
-            </a>
+            </Link>
 
             {/* Mobile menu button */}
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
                 <button
                   className={`lg:hidden pl-2.5 rounded-xl transition-colors ${
-                    scrolled
+                    isOpaque
                       ? "text-gray-600 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/50"
                       : "text-white hover:bg-white/10"
                   }`}
@@ -226,15 +241,12 @@ export default function Navbar() {
                           <ul className='pl-4 mt-1 space-y-1' role='list'>
                             {link.children.map((child) => (
                               <li key={child.href}>
-                                <a
+                                <Link
                                   href={child.href}
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    scrollTo(child.href);
-                                  }}
+                                  onClick={() => setMobileOpen(false)}
                                   className='block px-4 py-2.5 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 transition-colors'>
                                   {child.label}
-                                </a>
+                                </Link>
                               </li>
                             ))}
                           </ul>
@@ -242,28 +254,26 @@ export default function Navbar() {
                       </li>
                     ) : (
                       <li key={link.href}>
-                        <a
+                        <Link
                           href={link.href}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            scrollTo(link.href);
-                          }}
-                          className='block px-4 py-3 rounded-xl text-base font-semibold text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 transition-colors'>
+                          onClick={() => setMobileOpen(false)}
+                          className={`block px-4 py-3 rounded-xl text-base font-semibold transition-colors ${
+                            isActive(link.href)
+                              ? "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50"
+                              : "text-gray-700 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/50"
+                          }`}>
                           {link.label}
-                        </a>
+                        </Link>
                       </li>
                     ),
                   )}
                   <li className='pt-2'>
-                    <a
-                      href='#contact'
-                      onClick={(e) => {
-                        e.preventDefault();
-                        scrollTo("#contact");
-                      }}
+                    <Link
+                      href='/contact'
+                      onClick={() => setMobileOpen(false)}
                       className='block px-4 py-3 rounded-xl text-base font-bold text-white text-center bg-gradient-to-r from-emerald-600 to-teal-600'>
                       Get Started Free
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </SheetContent>
