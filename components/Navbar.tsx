@@ -15,8 +15,8 @@ const navLinks = [
     href: "/services",
     label: "Services",
     children: [
-      { href: "/services", label: "Admissions" },
-      { href: "/services", label: "Visa Processing" },
+      { href: "/admissions", label: "Admissions" },
+      { href: "/visa-processing", label: "Visa Processing" },
       { href: "/services#language", label: "Language Training" },
       { href: "/services#tours", label: "Tours & Holidays" },
     ],

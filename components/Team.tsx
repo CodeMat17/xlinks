@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 
 const team = [
   {
-    name: "Team Member",
+    name: "Ogechukwu Oleh",
     role: "Founder & CEO",
     bio: "Visionary leader with extensive experience in international education and student placement.",
     color: "from-emerald-500 to-teal-600",
@@ -15,24 +15,8 @@ const team = [
     bio: "Expert in university applications across the UK, Canada, and Australia with 5+ years experience.",
     color: "from-teal-500 to-cyan-600",
   },
-  {
-    name: "Team Member",
-    role: "Visa Processing Lead",
-    bio: "Certified immigration specialist with a track record of 98% visa approval rates.",
-    color: "from-green-500 to-emerald-600",
-  },
-  {
-    name: "Team Member",
-    role: "Language Trainer",
-    bio: "Certified IELTS and French language instructor committed to students achieving their target scores.",
-    color: "from-cyan-500 to-teal-600",
-  },
-  {
-    name: "Team Member",
-    role: "Travel & Tours Lead",
-    bio: "Plans flights, holidays, and tour packages with an eye for detail, helping clients explore the world stress-free.",
-    color: "from-emerald-600 to-green-500",
-  },
+
+ 
 ];
 
 function MemberPhotoPlaceholder({ color }: { color: string }) {
@@ -90,7 +74,7 @@ export default function Team() {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
           {team.map((member, i) => (
             <motion.article
               key={i}

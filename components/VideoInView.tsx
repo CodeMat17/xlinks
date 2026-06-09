@@ -38,6 +38,7 @@ export default function VideoInView({ src, className = "" }: VideoInViewProps) {
       loop
       // muted
       playsInline
+      preload="auto"
       className={className}
     />
   );
