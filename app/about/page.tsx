@@ -7,42 +7,13 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 
 const Team = dynamic(() => import("@/components/Team"));
 const Process = dynamic(() => import("@/components/Process"));
+const VideoInView = dynamic(() => import("@/components/VideoInView"));
 
 export const metadata: Metadata = {
   title: "About Us",
   description:
     "Learn about Xlinks Education and Travel Consult — Nigeria's leading study abroad and travel agency based in Port Harcourt. Our story, mission, vision, and expert team.",
 };
-
-function PhotoPlaceholder({
-  label = "Photo Placeholder",
-  hint = "Replace with your photo",
-  className = "",
-}: {
-  label?: string;
-  hint?: string;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-700 flex items-center justify-center ${className}`}>
-      <div className="text-center text-gray-400 dark:text-gray-600 p-8">
-        <div className="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center mx-auto mb-3">
-          <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-            />
-          </svg>
-        </div>
-        <p className="text-sm font-semibold">{label}</p>
-        <p className="text-xs mt-1">{hint}</p>
-      </div>
-    </div>
-  );
-}
 
 const milestones = [
   { year: "Sep 2023", event: "Xlinks officially established in Port Harcourt, Nigeria." },
@@ -121,24 +92,12 @@ export default function AboutPage() {
                 <ArrowRight className="w-5 h-5" aria-hidden="true" />
               </Link>
             </div>
-            <div className="space-y-4">
-              <PhotoPlaceholder
-                label="Office Exterior / Front Entrance"
-                hint="Recommended: 800 × 500 px"
-                className="aspect-video"
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-emerald-500/20 ring-1 ring-emerald-100 dark:ring-emerald-900/50 bg-black">
+              <VideoInView
+                src="/xlinks_video.mp4"
+                className="w-full h-full object-cover aspect-video"
               />
-              <div className="grid grid-cols-2 gap-4">
-                <PhotoPlaceholder
-                  label="Reception / Waiting Area"
-                  hint="600 × 400 px"
-                  className="aspect-video"
-                />
-                <PhotoPlaceholder
-                  label="Consultation Room"
-                  hint="600 × 400 px"
-                  className="aspect-video"
-                />
-              </div>
+              <div className="absolute inset-0 rounded-2xl ring-inset ring-1 ring-white/10 pointer-events-none" />
             </div>
           </div>
         </div>
