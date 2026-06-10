@@ -9,27 +9,18 @@ export default function ShareButton({ title }: { title: string }) {
   async function handleShare() {
     const url = window.location.href;
 
-    // Use Web Share API when available and on a secure context
-    if (
-      typeof navigator !== "undefined" &&
-      typeof navigator.share === "function" &&
-      window.isSecureContext
-    ) {
+    if (typeof navigator.share === "function" && window.isSecureContext) {
       try {
         await navigator.share({ title, url });
         return;
       } catch (err: unknown) {
-        // AbortError means the user dismissed the sheet — do nothing
         if (err instanceof Error && err.name === "AbortError") return;
-        // Any other error: fall through to clipboard
       }
     }
 
-    // Clipboard fallback
     try {
       await navigator.clipboard.writeText(url);
     } catch {
-      // Clipboard blocked — use the legacy execCommand approach
       const el = document.createElement("textarea");
       el.value = url;
       el.style.position = "fixed";
