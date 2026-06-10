@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import PageWrapper from "@/components/PageWrapper";
 import NewsImage from "@/components/NewsImage";
@@ -9,11 +9,12 @@ import { articles } from "./data";
 
 
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 8;
 
 export default function NewsPage() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const articlesRef = useRef<HTMLDivElement>(null);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -23,6 +24,10 @@ export default function NewsPage() {
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  function scrollToArticles() {
+    articlesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   function handleSearch(value: string) {
     setSearch(value);
@@ -57,7 +62,7 @@ export default function NewsPage() {
 
       {/* Articles Section */}
       <section className="section-padding bg-background">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto" ref={articlesRef}>
 
           {/* Search */}
           <div className="relative max-w-xl mx-auto mb-10">
@@ -73,7 +78,7 @@ export default function NewsPage() {
 
           {/* Articles grid */}
           {paginated.length > 0 ? (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="max-w-7xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {paginated.map((article, i) => (
                 <article
                   key={article.slug}
@@ -83,24 +88,24 @@ export default function NewsPage() {
                       src={article.photoUrl}
                       alt={article.title}
                       fill
-                      className="object-cover"
+                      className=""
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   </div>
-                  <div className="p-6">
-                    <div className="flex items-center mb-3">
+                  <div className="px-4 py-2">
+                    <div className="flex items-center mb-2">
                       <span className="text-xs text-gray-400 flex items-center gap-1">
                         <Calendar className="w-3 h-3" aria-hidden="true" />
                         {article.date}
                       </span>
                     </div>
-                    <h3 className="text-base font-black text-gray-900 dark:text-white mb-3 leading-snug">
+                    <h3 className="text-base font-black text-gray-900 dark:text-white mb-2 leading-snug line-clamp-2">
                       {article.title}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-3">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-3">
                       {article.excerpt}
                     </p>
-                    <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <div className="mt-2 pt-1 border-t border-gray-100 dark:border-gray-800">
                       <Link
                         href={`/news/${article.slug}`}
                         className="inline-flex items-center gap-1 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:gap-2 transition-all">
@@ -123,7 +128,7 @@ export default function NewsPage() {
           {totalPages > 1 && (
             <div className="flex items-center justify-center gap-2 mt-12">
               <button
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                onClick={() => { setPage((p) => Math.max(1, p - 1)); scrollToArticles(); }}
                 disabled={page === 1}
                 className="px-4 py-2 rounded-lg text-sm font-semibold border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 hover:text-emerald-600 dark:hover:text-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
                 Previous
@@ -131,7 +136,7 @@ export default function NewsPage() {
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => (
                 <button
                   key={n}
-                  onClick={() => setPage(n)}
+                  onClick={() => { setPage(n); scrollToArticles(); }}
                   className={`w-10 h-10 rounded-lg text-sm font-bold transition-colors ${
                     n === page
                       ? "bg-emerald-600 text-white shadow-md"
@@ -141,7 +146,7 @@ export default function NewsPage() {
                 </button>
               ))}
               <button
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() => { setPage((p) => Math.min(totalPages, p + 1)); scrollToArticles(); }}
                 disabled={page === totalPages}
                 className="px-4 py-2 rounded-lg text-sm font-semibold border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 hover:text-emerald-600 dark:hover:text-emerald-400 disabled:opacity-40 disabled:cursor-not-allowed transition-colors">
                 Next

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 
@@ -78,16 +78,23 @@ const testimonials = [
 
 export default function Testimonials() {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
+  const next = useCallback(() => setActive((a) => (a + 1) % testimonials.length), []);
   const prev = () => setActive((a) => (a - 1 + testimonials.length) % testimonials.length);
-  const next = () => setActive((a) => (a + 1) % testimonials.length);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(next, 9000);
+    return () => clearInterval(id);
+  }, [paused, next]);
 
   return (
     <section
       id="testimonials"
-      className="section-padding bg-background"
+      className="max-w-6xl mx-auto section-padding bg-background"
       aria-labelledby="testimonials-heading"
       ref={ref}
     >
@@ -121,7 +128,11 @@ export default function Testimonials() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="relative mb-8"
         >
-          <div className="bg-gradient-to-br from-emerald-900 to-teal-900 rounded-3xl p-8 md:p-12 overflow-hidden">
+          <div
+            className="bg-gradient-to-br from-emerald-900 to-teal-900 rounded-3xl p-8 md:p-12 overflow-hidden"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
             {/* Background quote */}
             <Quote className="absolute top-6 right-6 w-20 h-20 text-white/5" aria-hidden="true" />
 
@@ -154,7 +165,7 @@ export default function Testimonials() {
                 </div>
 
                 <blockquote className="text-lg text-white/90 leading-relaxed max-w-3xl">
-                  "{testimonials[active].text}"
+                  &quot;{testimonials[active].text}&quot;
                 </blockquote>
               </motion.div>
             </AnimatePresence>

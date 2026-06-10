@@ -3,7 +3,7 @@
 import Image, { type ImageProps } from "next/image";
 import { useState } from "react";
 
-const FALLBACK = "/xlinks_logo.webp";
+const FALLBACK = "/xlinks_fav_logo.png";
 
 type Props = Omit<ImageProps, "onError"> & { src: string };
 
