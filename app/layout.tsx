@@ -11,7 +11,7 @@ const nunito = Nunito({
 });
 
 const siteUrl = "https://xlinkseducationalandtravels.org";
-const siteName = "Xlinks Education and Travel Consult";
+const siteName = "Xlinks Educational and Travel Consult";
 const siteDescription =
   "Nigeria's premier study abroad and travel agency in Port Harcourt. Expert visa processing, university admissions, IELTS preparation, language training, flight booking, and holiday & tour packages for UK, Canada, USA, Australia & 11 countries. Start your global education and travel journey today.";
 

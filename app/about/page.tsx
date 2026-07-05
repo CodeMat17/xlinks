@@ -12,7 +12,7 @@ const VideoInView = dynamic(() => import("@/components/VideoInView"));
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Learn about Xlinks Education and Travel Consult — Nigeria's leading study abroad and travel agency based in Port Harcourt. Our story, mission, vision, and expert team.",
+    "Learn about Xlinks Educational and Travel Consult — Nigeria's leading study abroad and travel agency based in Port Harcourt. Our story, mission, vision, and expert team.",
 };
 
 const milestones = [

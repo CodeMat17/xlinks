@@ -70,9 +70,9 @@ export default function Navbar() {
           <Link
             href='/'
             className='flex items-center gap-2.5 group shrink-0'
-            aria-label='Xlinks Education and Travel Consult – Home'>
+            aria-label='Xlinks Educational and Travel Consult – Home'>
             <Image
-              alt='Xlinks Education and Travel Consult logo'
+              alt='Xlinks Educational and Travel Consult logo'
               src='/xlinks_logo.webp'
               width={40}
               height={40}
@@ -94,7 +94,7 @@ export default function Navbar() {
                     ? "text-teal-600 dark:text-teal-400"
                     : "text-teal-300"
                 }`}>
-                Education and <br />Travel Consult
+                Educational and <br />Travel Consult
               </span>
               <span
                 className={`hidden sm:block text-[10px] font-semibold tracking-widest uppercase -mt-0.5 transition-colors ${
@@ -102,7 +102,7 @@ export default function Navbar() {
                     ? "text-teal-600 dark:text-teal-400"
                     : "text-teal-300"
                 }`}>
-                Education and Travel Consult
+                Educational and Travel Consult
               </span>
             </div>
           </Link>

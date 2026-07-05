@@ -25,7 +25,7 @@ export default function Hero() {
     <section
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden"
-      aria-label="Welcome to Xlinks Education and Travel Consult"
+      aria-label="Welcome to Xlinks Educational and Travel Consult"
     >
       {/* Background */}
       <div className="absolute inset-0 gradient-bg" aria-hidden="true" />

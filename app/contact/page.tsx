@@ -5,7 +5,7 @@ import Contact from "@/components/Contact";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Xlinks Education and Travel Consult. Book a free consultation for study abroad, visa processing, language training, or travel packages. Based in Port Harcourt, Nigeria.",
+    "Get in touch with Xlinks Educational and Travel Consult. Book a free consultation for study abroad, visa processing, language training, or travel packages. Based in Port Harcourt, Nigeria.",
 };
 
 export default function ContactPage() {

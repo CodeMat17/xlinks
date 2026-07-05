@@ -11,8 +11,8 @@ const faqGroups = [
     bg: "bg-emerald-50 dark:bg-emerald-950/30",
     faqs: [
       {
-        q: "What is Xlinks Education and Travel Consult?",
-        a: "Xlinks Education and Travel Consult is a licensed study abroad and travel agency based in Port Harcourt, Nigeria. We provide end-to-end services for students seeking to study internationally and for individuals and families planning travel — including university admissions, visa processing, language training, flight booking, and holiday packages.",
+        q: "What is Xlinks Educational and Travel Consult?",
+        a: "Xlinks Educational and Travel Consult is a licensed study abroad and travel agency based in Port Harcourt, Nigeria. We provide end-to-end services for students seeking to study internationally and for individuals and families planning travel — including university admissions, visa processing, language training, flight booking, and holiday packages.",
       },
       {
         q: "Where is your office located?",

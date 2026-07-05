@@ -150,7 +150,7 @@ export default function Home() {
                 </span>
               </h2>
               <p className='text-gray-600 dark:text-gray-300 mb-7 leading-relaxed'>
-                Since September 2023, Xlinks Education and Travel Consult has
+                Since September 2023, Xlinks Educational and Travel Consult has
                 been helping students and travelers from Port Harcourt and
                 across Nigeria achieve their international dreams — with
                 honesty, expertise, and genuine care.

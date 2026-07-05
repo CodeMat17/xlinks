@@ -63,7 +63,7 @@ export default function Footer() {
             Your Future — and Your Next Trip — Deserve the Experts
           </h2>
           <p className="text-emerald-100 mb-6 max-w-xl mx-auto">
-            Let the experts at Xlinks Education and Travel Consult guide you through university
+            Let the experts at Xlinks Educational and Travel Consult guide you through university
             placements, visa processing, language training, and unforgettable holiday and tour packages.
           </p>
           <Link
@@ -82,7 +82,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2.5 mb-4">
               <Image
-                alt="Xlinks Education and Travel Consult logo"
+                alt="Xlinks Educational and Travel Consult logo"
                 src="/xlinks_logo.webp"
                 width={50}
                 height={50}
@@ -94,7 +94,7 @@ export default function Footer() {
                   XLINKS
                 </span>
                 <span className="block text-[10px] font-semibold text-teal-400 tracking-widest uppercase -mt-0.5">
-                  Education and Travel Consult
+                  Educational and Travel Consult
                 </span>
               </div>
             </div>
@@ -208,7 +208,7 @@ export default function Footer() {
           <p>
             © {currentYear}{" "}
             <span className="text-emerald-500 font-semibold">
-              Xlinks Education and Travel Consult
+              Xlinks Educational and Travel Consult
             </span>
             . All rights reserved.
           </p>
