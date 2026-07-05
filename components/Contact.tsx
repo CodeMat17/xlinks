@@ -309,9 +309,8 @@ export default function Contact() {
                     />
                   </div>
                   <button
-                      type='submit'
-                      disabled
-                    // disabled={loading}
+                    type='submit'
+                    disabled={loading}
                     className='w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-60 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-200 hover:-translate-y-0.5 text-base'>
                     {loading ? (
                       <span className='flex items-center gap-2'>
