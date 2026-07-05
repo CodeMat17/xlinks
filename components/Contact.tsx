@@ -1,7 +1,15 @@
 "use client";
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle2 } from "lucide-react";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Send,
+  CheckCircle2,
+  MessageCircle,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -66,6 +74,33 @@ export default function Contact() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleWhatsApp = () => {
+    const missing = [
+      !form.name.trim() && "Full Name",
+      !form.email.trim() && "Email Address",
+      !form.message.trim() && "Message",
+    ].filter(Boolean);
+
+    if (missing.length > 0) {
+      setError(`Please fill in: ${missing.join(", ")}`);
+      return;
+    }
+    setError(null);
+
+    const lines = [
+      `*Name:* ${form.name}`,
+      `*Email:* ${form.email}`,
+      form.phone && `*Phone:* ${form.phone}`,
+      form.service && `*Service:* ${form.service}`,
+      `*Message:* ${form.message}`,
+    ].filter(Boolean);
+    const text = `Hello Xlinks Educational & Travels, I'd like to enquire:\n\n${lines.join(
+      "\n"
+    )}`;
+    const url = `https://wa.me/2349134523615?text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -308,40 +343,49 @@ export default function Contact() {
                       className='resize-none'
                     />
                   </div>
-                  <button
-                    type='submit'
-                    disabled={loading}
-                    className='w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-60 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-200 hover:-translate-y-0.5 text-base'>
-                    {loading ? (
-                      <span className='flex items-center gap-2'>
-                        <svg
-                          className='animate-spin w-5 h-5'
-                          viewBox='0 0 24 24'
-                          fill='none'
-                          aria-hidden='true'>
-                          <circle
-                            className='opacity-25'
-                            cx='12'
-                            cy='12'
-                            r='10'
-                            stroke='currentColor'
-                            strokeWidth='4'
-                          />
-                          <path
-                            className='opacity-75'
-                            fill='currentColor'
-                            d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z'
-                          />
-                        </svg>
-                        Sending...
-                      </span>
-                    ) : (
-                      <>
-                        Send Message
-                        <Send className='w-5 h-5' aria-hidden='true' />
-                      </>
-                    )}
-                  </button>
+                  <div className='flex flex-col sm:flex-row gap-3'>
+                    <button
+                      type='submit'
+                      disabled={loading}
+                      className='flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-60 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-200 hover:-translate-y-0.5 text-base'>
+                      {loading ? (
+                        <span className='flex items-center gap-2'>
+                          <svg
+                            className='animate-spin w-5 h-5'
+                            viewBox='0 0 24 24'
+                            fill='none'
+                            aria-hidden='true'>
+                            <circle
+                              className='opacity-25'
+                              cx='12'
+                              cy='12'
+                              r='10'
+                              stroke='currentColor'
+                              strokeWidth='4'
+                            />
+                            <path
+                              className='opacity-75'
+                              fill='currentColor'
+                              d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z'
+                            />
+                          </svg>
+                          Sending...
+                        </span>
+                      ) : (
+                        <>
+                          Send via Email
+                          <Send className='w-5 h-5' aria-hidden='true' />
+                        </>
+                      )}
+                    </button>
+                    <button
+                      type='button'
+                      onClick={handleWhatsApp}
+                      className='flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-[#25D366] hover:bg-[#1ebe5a] text-white font-bold rounded-xl shadow-lg shadow-[#25D366]/30 hover:shadow-[#25D366]/50 transition-all duration-200 hover:-translate-y-0.5 text-base'>
+                      Send via WhatsApp
+                      <MessageCircle className='w-5 h-5' aria-hidden='true' />
+                    </button>
+                  </div>
                   {error && (
                     <p className='text-sm text-red-500 text-center mt-3'>{error}</p>
                   )}
