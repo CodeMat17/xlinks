@@ -1,58 +1,53 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
 import PageWrapper from "@/components/PageWrapper";
+import PageHero from "@/components/PageHero";
 import Services from "@/components/Services";
-
-const LanguageCenter = dynamic(() => import("@/components/LanguageCenter"));
-const Destinations = dynamic(() => import("@/components/Destinations"));
+import LanguageCenter from "@/components/LanguageCenter";
+import Destinations from "@/components/Destinations";
+import { services as serviceNames, siteName, siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Our Services",
   description:
-    "Explore Xlinks full range of services: university admissions, visa processing, IELTS preparation, language training, flight booking, tours & holiday packages, accommodation, and more.",
+    "University admissions, visa processing, IELTS and language training, flight booking, tours and holiday packages, accommodation, airport pickup, document authentication and travel insurance — from our Port Harcourt office.",
+  alternates: { canonical: "/services" },
+};
+
+const serviceLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: `Services offered by ${siteName}`,
+  itemListElement: serviceNames.map((name, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "Service",
+      name,
+      provider: { "@id": `${siteUrl}/#organization` },
+      areaServed: { "@type": "Country", name: "Nigeria" },
+    },
+  })),
 };
 
 export default function ServicesPage() {
   return (
     <PageWrapper>
-      {/* Page Hero */}
-      <section className="relative pt-24 pb-16 gradient-bg overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-          }}
-          aria-hidden="true"
-        />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block text-sm font-bold text-emerald-300 uppercase tracking-widest mb-3">
-            What We Offer
-          </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-5 leading-tight">
-            Our <span className="text-emerald-300">Services</span>
-          </h1>
-          <p className="text-lg text-white/75 max-w-2xl mx-auto leading-relaxed">
-            From university admissions and visa processing to language training, flights,
-            and holiday packages — everything you need, under one roof.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="What we offer"
+        title="Our"
+        highlight="services"
+        lede="Admissions, visas, language training, flights and holidays — handled by one team, so nothing falls between two agents."
+        crumbs={[{ href: "/services", label: "Services" }]}
+      />
 
-      {/* Services Grid */}
-      <div id="admissions">
-        <Services />
-      </div>
+      <Services />
+      <LanguageCenter />
+      <Destinations />
 
-      {/* Language Center */}
-      <div id="language">
-        <LanguageCenter />
-      </div>
-
-      {/* Destinations */}
-      <div id="tours">
-        <Destinations />
-      </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }}
+      />
     </PageWrapper>
   );
 }

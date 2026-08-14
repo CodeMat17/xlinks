@@ -1,142 +1,123 @@
-"use client";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { CheckCircle2, Target, Eye, Heart } from "lucide-react";
+import { Check, Eye, Heart, Target } from "lucide-react";
+import { contact, destinations } from "@/lib/site";
 
 const values = [
-  { icon: Target, label: "Mission", text: "To bridge the gap between ambitious Nigerians and world-class institutions and destinations by providing honest, expert, and affordable study abroad and travel consultancy." },
-  { icon: Eye, label: "Vision", text: "To be West Africa's most trusted education and travel agency — transforming lives one journey at a time through quality international placements and unforgettable travel experiences." },
-  { icon: Heart, label: "Values", text: "Integrity, excellence, customer-first service, and continuous support from first enquiry to landing abroad and beyond." },
+  {
+    icon: Target,
+    label: "Mission",
+    text: "To connect ambitious Nigerians with credible institutions and destinations abroad through honest, expert and affordable consultancy.",
+  },
+  {
+    icon: Eye,
+    label: "Vision",
+    text: "To be the education and travel consultancy West Africans recommend to each other — because the advice was straight and the outcome was real.",
+  },
+  {
+    icon: Heart,
+    label: "Values",
+    text: "Integrity, expertise and follow-through: from the first enquiry to long after you have landed.",
+  },
 ];
 
 const highlights = [
-  "Located at No. 35 Ndele Street, Bishop House, D-Line, Port Harcourt",
-  "Registered and licensed educational and travel consultancy firm",
-  "Partnerships with 50+ accredited universities worldwide",
-  "Dedicated post-visa support, relocation, and travel assistance",
-  "In-house language center for IELTS, French, German & Spanish",
-  "Tailored holiday, tour, and travel packages for individuals and groups",
+  `Office at ${contact.street}, ${contact.city}`,
+  "Registered educational and travel consultancy",
+  "Applications submitted to 50+ partner universities",
+  "Post-visa support, relocation help and travel assistance",
+  "In-house language centre for IELTS, French, German and Spanish",
+  "Tailored holiday and tour packages for individuals and groups",
 ];
 
 export default function About() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section
-      id="about"
-      className="section-padding bg-gradient-to-b from-emerald-50/50 to-background dark:from-emerald-950/20 dark:to-background"
-      aria-labelledby="about-heading"
-      ref={ref}
-    >
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left: Visual */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7 }}
-            className="relative"
-          >
-            {/* Main image card */}
-            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-emerald-600 to-teal-700 aspect-4/4 shadow-2xl shadow-emerald-500/20">
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-white text-center">
-                <div className="text-7xl mb-4 flex items-center gap-2" aria-hidden="true"><span>🎓</span><span>✈️</span></div>
-                <p className="text-2xl font-black">Established</p>
-                <p className="text-5xl font-black text-emerald-200">2023</p>
-                <p className="text-sm text-white/70 mt-2">September 30, 2023</p>
-                <p className="text-base font-semibold text-white/90 mt-4 max-w-xs leading-relaxed">
-                  Nigeria&apos;s premier study abroad and travel agency, helping dreams take flight.
-                </p>
-              </div>
-              {/* Decorative dots */}
-              <div className="absolute top-4 right-4 grid grid-cols-4 gap-1" aria-hidden="true">
-                {[...Array(16)].map((_, i) => (
-                  <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/20" />
-                ))}
-              </div>
+    <section id="about" className="section" aria-labelledby="about-heading">
+      <div className="shell">
+        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Left: identity panel */}
+          <div className="brand-gradient reveal relative isolate overflow-hidden rounded-3xl p-8 sm:p-10">
+            <div className="dot-field pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+            <div className="relative">
+              <p className="font-display text-2xs font-bold tracking-[0.16em] text-brand-300 uppercase">
+                Established
+              </p>
+              <p className="mt-2 font-display text-6xl font-extrabold text-white">
+                2023
+              </p>
+              <p className="mt-1 text-sm text-white/70">
+                30 September 2023 · Port Harcourt, Rivers State
+              </p>
+
+              <p className="mt-8 text-white/85">
+                We started Xlinks because too many capable Nigerian students
+                were losing money and years to agents who vanished after the
+                deposit. We built the opposite of that.
+              </p>
+
+              <ul className="mt-8 space-y-4 border-t border-white/15 pt-8">
+                {values.map((v) => {
+                  const Icon = v.icon;
+                  return (
+                    <li key={v.label} className="flex items-start gap-4">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/10">
+                        <Icon className="h-4.5 w-4.5 text-brand-300" aria-hidden="true" />
+                      </span>
+                      <span>
+                        <span className="block font-display text-sm font-bold text-white">
+                          {v.label}
+                        </span>
+                        <span className="mt-1 block text-sm leading-relaxed text-white/70">
+                          {v.text}
+                        </span>
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
+          </div>
 
-            {/* Value cards */}
-            {/* <div className="grid grid-cols-3 gap-3 mt-4">
-              {values.map((v, i) => {
-                const Icon = v.icon;
-                return (
-                  <div
-                    key={i}
-                    className="bg-white dark:bg-gray-900 rounded-xl p-4 text-center border border-emerald-100 dark:border-emerald-900/50 shadow-sm"
-                  >
-                    <Icon className="w-6 h-6 text-emerald-600 dark:text-emerald-400 mx-auto mb-2" aria-hidden="true" />
-                    <p className="text-xs font-bold text-gray-700 dark:text-gray-200">{v.label}</p>
-                  </div>
-                );
-              })}
-            </div> */}
-          </motion.div>
-
-          {/* Right: Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.15 }}
-          >
-            <span className="inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
-              About Us
-            </span>
+          {/* Right: prose */}
+          <div>
+            <p className="eyebrow">About us</p>
             <h2
               id="about-heading"
-              className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mb-6 leading-tight"
+              className="mt-3 text-(length:--text-h2) font-extrabold text-ink"
             >
-              Nigeria&apos;s Leading{" "}
-              <span className="gradient-text">Education &amp; Travel Partner</span>
+              A study abroad and travel consultancy{" "}
+              <span className="brand-text">built on follow-through</span>
             </h2>
 
-            <p className="text-gray-600 dark:text-gray-300 mb-5 leading-relaxed">
-              Xlinks Educational and Travel Consult is a leading study abroad and travel agency in
-              Nigeria. We are your one-stop solution for everything you need to study, explore, and
-              travel internationally — from securing admission to booking your next holiday.
+            <p className="lede mt-5">
+              Xlinks Educational and Travel Consult helps students and
+              travellers in Port Harcourt and across Nigeria get where they are
+              going — admission, visa, flight, accommodation and the part
+              afterwards that most agents skip.
             </p>
 
-            <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-              We help students pursue their dreams of studying in the{" "}
-              <strong className="text-emerald-700 dark:text-emerald-400">United Kingdom, United States,
-              Canada, Ireland, Australia, Malta, Finland, Austria, China, Cyprus, and New Zealand</strong>,
-              and we help travelers plan seamless flights, holidays, and tour packages to destinations
-              around the world. Our commitment doesn&apos;t end at the visa or the booking — we follow up
-              with every client through their entire journey.
+            <p className="mt-4 text-ink-muted">
+              We place students in{" "}
+              <strong className="font-semibold text-brand-700 dark:text-brand-300">
+                {destinations.map((d) => d.name).join(", ")}
+              </strong>
+              , and we plan flights, holidays and tour packages worldwide. Our
+              involvement does not end at the visa decision or the booking
+              confirmation — we stay in contact through the whole journey.
             </p>
 
-            {/* Highlights */}
-            <ul className="space-y-3 mb-8" aria-label="Key highlights about Xlinks">
-              {highlights.map((point, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <CheckCircle2
-                    className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5"
+            <ul className="mt-8 space-y-3">
+              {highlights.map((point) => (
+                <li key={point} className="flex items-start gap-3">
+                  <span
+                    className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-100 dark:bg-brand-900"
                     aria-hidden="true"
-                  />
-                  <span className="text-sm text-gray-600 dark:text-gray-300">{point}</span>
+                  >
+                    <Check className="h-3 w-3 text-brand-700 dark:text-brand-300" />
+                  </span>
+                  <span className="text-sm text-ink-muted">{point}</span>
                 </li>
               ))}
             </ul>
-
-            {/* Mission/Vision/Values */}
-            <div className="space-y-4">
-              {values.map((v, i) => {
-                const Icon = v.icon;
-                return (
-                  <div key={i} className="flex items-start gap-4 p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50">
-                    <div className="w-9 h-9 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-0.5">{v.label}</p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{v.text}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

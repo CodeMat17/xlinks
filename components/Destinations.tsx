@@ -1,195 +1,108 @@
-"use client";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+/**
+ * Per-country university counts were removed: they summed far beyond the
+ * "50+ partner universities" figure used everywhere else on the site, which
+ * reads as inflated the moment anyone adds them up.
+ */
 const countries = [
   {
     flag: "🇬🇧",
     name: "United Kingdom",
-    universities: "200+",
-    highlight: "Top Russell Group Universities",
-    color: "from-blue-600 to-blue-800",
-    popular: true,
+    highlight: "Russell Group and modern universities, one-year master's",
+    featured: true,
   },
   {
     flag: "🇨🇦",
     name: "Canada",
-    universities: "180+",
-    highlight: "Post-Study Work Permits",
-    color: "from-red-600 to-red-800",
-    popular: true,
+    highlight: "Post-graduation work permits and a route to residency",
+    featured: true,
   },
   {
     flag: "🇺🇸",
     name: "United States",
-    universities: "250+",
-    highlight: "World-Renowned Ivy League",
-    color: "from-blue-700 to-red-700",
-    popular: true,
+    highlight: "The widest choice of programmes and campus scholarships",
+    featured: true,
   },
   {
     flag: "🇦🇺",
     name: "Australia",
-    universities: "150+",
-    highlight: "Quality of Life & Work Rights",
-    color: "from-yellow-600 to-red-700",
-    popular: true,
+    highlight: "Generous student work rights and post-study stay-back",
+    featured: true,
   },
-  {
-    flag: "🇮🇪",
-    name: "Ireland",
-    universities: "30+",
-    highlight: "English-Speaking EU Country",
-    color: "from-green-700 to-green-900",
-    popular: false,
-  },
-  {
-    flag: "🇲🇹",
-    name: "Malta",
-    universities: "20+",
-    highlight: "EU Citizenship Gateway",
-    color: "from-red-700 to-gray-800",
-    popular: false,
-  },
-  {
-    flag: "🇫🇮",
-    name: "Finland",
-    universities: "25+",
-    highlight: "Top-Ranked Education System",
-    color: "from-blue-600 to-white/50",
-    popular: false,
-  },
-  {
-    flag: "🇦🇹",
-    name: "Austria",
-    universities: "20+",
-    highlight: "Heart of Europe",
-    color: "from-red-700 to-gray-700",
-    popular: false,
-  },
-  {
-    flag: "🇨🇳",
-    name: "China",
-    universities: "100+",
-    highlight: "Scholarships Available",
-    color: "from-red-600 to-yellow-600",
-    popular: false,
-  },
-  {
-    flag: "🇨🇾",
-    name: "Cyprus",
-    universities: "15+",
-    highlight: "Affordable European Education",
-    color: "from-orange-500 to-yellow-600",
-    popular: false,
-  },
-  {
-    flag: "🇳🇿",
-    name: "New Zealand",
-    universities: "20+",
-    highlight: "Safe & Welcoming Environment",
-    color: "from-teal-600 to-blue-700",
-    popular: false,
-  },
+  { flag: "🇮🇪", name: "Ireland", highlight: "English-speaking EU" },
+  { flag: "🇲🇹", name: "Malta", highlight: "Small, English-taught EU campuses" },
+  { flag: "🇫🇮", name: "Finland", highlight: "Highly ranked public system" },
+  { flag: "🇦🇹", name: "Austria", highlight: "Low tuition, central Europe" },
+  { flag: "🇨🇳", name: "China", highlight: "Scholarship-heavy intakes" },
+  { flag: "🇨🇾", name: "Cyprus", highlight: "Affordable European study" },
+  { flag: "🇳🇿", name: "New Zealand", highlight: "Safe, welcoming campuses" },
 ];
 
 export default function Destinations() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const featured = countries.filter((c) => c.featured);
+  const others = countries.filter((c) => !c.featured);
 
   return (
-    <section
-      id="destinations"
-      className="section-padding bg-gradient-to-b from-background to-emerald-50/50 dark:to-emerald-950/20"
-      aria-labelledby="destinations-heading"
-      ref={ref}
-    >
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-14"
-        >
-          <span className="inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
-            Study &amp; Travel Destinations
-          </span>
+    <section id="destinations" className="section" aria-labelledby="destinations-heading">
+      <div className="shell">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="eyebrow">Study &amp; travel destinations</p>
           <h2
             id="destinations-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white mb-4"
+            className="mt-3 text-(length:--text-h2) font-extrabold text-ink"
           >
-            Explore <span className="gradient-text">11 Countries</span>
+            Eleven countries we <span className="brand-text">know well</span>
           </h2>
-          <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-            From university placements to holiday getaways, we have partner universities, tour
-            operators, and placement expertise across these world-class destinations. Your dream
-            country — for study or travel — is just a consultation away.
+          <p className="lede mt-4">
+            Each has its own entry requirements, funding rules and visa quirks.
+            We&apos;ll tell you honestly which ones fit your profile — and
+            which don&apos;t.
           </p>
-        </motion.div>
-
-        {/* Popular destinations */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
-          {countries.filter((c) => c.popular).map((country, i) => (
-            <motion.article
-              key={country.name}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="group relative rounded-2xl overflow-hidden bg-gradient-to-br from-emerald-800 to-teal-900 hover:shadow-2xl hover:shadow-emerald-500/20 transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className="p-6 relative z-10">
-                <span className="text-5xl block mb-3 text-white" role="img" aria-label={`Flag of ${country.name}`}>
-                  {country.flag}
-                </span>
-                <h3 className="text-lg font-black text-white/90 mb-1">{country.name}</h3>
-                <p className="text-emerald-200 text-sm font-medium mb-3">{country.highlight}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-white/60">{country.universities} Universities</span>
-                  <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-300 group-hover:gap-2 transition-all">
-                    Explore <ArrowRight className="w-3 h-3" aria-hidden="true" />
-                  </span>
-                </div>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" aria-hidden="true" />
-            </motion.article>
-          ))}
         </div>
 
-        {/* Other destinations */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
-          {countries.filter((c) => !c.popular).map((country, i) => (
-            <motion.article
+        {/* Featured four */}
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {featured.map((country) => (
+            <li
               key={country.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.4, delay: 0.3 + i * 0.06 }}
-              className="group bg-white dark:bg-gray-900 rounded-xl p-4 text-center border border-gray-100 dark:border-gray-800 hover:border-emerald-200 dark:hover:border-emerald-800 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
+              className="brand-gradient reveal relative overflow-hidden rounded-2xl p-6 transition-transform duration-300 hover:-translate-y-1"
             >
-              <span className="text-3xl block mb-2" role="img" aria-label={`Flag of ${country.name}`}>
+              <span className="block text-4xl" aria-hidden="true">
                 {country.flag}
               </span>
-              <p className="text-xs font-bold text-gray-800 dark:text-gray-200">{country.name}</p>
-              <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1">{country.universities}</p>
-            </motion.article>
+              <h3 className="mt-3 font-display text-lg font-bold text-white">
+                {country.name}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/75">
+                {country.highlight}
+              </p>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.7 }}
-          className="text-center mt-10"
-        >
-          <a
-            href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-200 hover:-translate-y-0.5"
-          >
-            Find Your Destination
-            <ArrowRight className="w-5 h-5" aria-hidden="true" />
-          </a>
-        </motion.div>
+        {/* Remaining seven */}
+        <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {others.map((country) => (
+            <li key={country.name} className="card reveal p-4">
+              <span className="block text-3xl" aria-hidden="true">
+                {country.flag}
+              </span>
+              <h3 className="mt-2 font-display text-sm font-bold text-ink">
+                {country.name}
+              </h3>
+              <p className="mt-1 text-xs text-ink-subtle">{country.highlight}</p>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-10 text-center">
+          <Link href="/contact" className="btn-secondary">
+            Find the right destination for you
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </div>
       </div>
     </section>
   );

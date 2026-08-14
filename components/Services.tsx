@@ -1,187 +1,145 @@
-"use client";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
 import {
-  GraduationCap, FileCheck, Languages, Plane, Home, Car, FileStack, Shield, Map,
+  Car,
+  FileCheck,
+  FileStack,
+  GraduationCap,
+  Home,
+  Languages,
+  Map,
+  Plane,
+  Shield,
 } from "lucide-react";
 
 const services = [
   {
     icon: GraduationCap,
-    title: "University Admissions",
+    title: "University admissions",
     description:
-      "Expert guidance through application processes at our 50+ partner universities across 11 countries. We ensure your application stands out.",
-    color: "from-emerald-500 to-teal-600",
-    bg: "bg-emerald-50 dark:bg-emerald-950/30",
-    iconColor: "text-emerald-600 dark:text-emerald-400",
-    highlight: true,
+      "Course and university shortlisting against your grades and budget, application assembly, personal statements, and follow-up until the offer letter is in your hand.",
+    featured: true,
   },
   {
     icon: FileCheck,
-    title: "Visa Processing",
+    title: "Visa processing",
     description:
-      "Comprehensive visa application support with 98% success rate. Includes document preparation, interview coaching, and submission assistance.",
-    color: "from-teal-500 to-cyan-600",
-    bg: "bg-teal-50 dark:bg-teal-950/30",
-    iconColor: "text-teal-600 dark:text-teal-400",
-    highlight: false,
+      "Document preparation, financial evidence review, interview coaching and submission support for study, visitor and transit visas.",
   },
   {
     icon: Languages,
-    title: "Language Training",
+    title: "Language training",
     description:
-      "Professional IELTS, French, German, and Spanish preparation classes. Certified trainers with proven success records.",
-    color: "from-green-500 to-emerald-600",
-    bg: "bg-green-50 dark:bg-green-950/30",
-    iconColor: "text-green-600 dark:text-green-400",
-    highlight: false,
+      "IELTS preparation plus French, German and Spanish classes with certified instructors, in person at our Port Harcourt centre or online.",
   },
   {
     icon: Plane,
-    title: "Flight Booking",
+    title: "Flight booking",
     description:
-      "Competitive flight deals and booking assistance for study, business, or leisure travel. Group and private travel arrangements available.",
-    color: "from-cyan-500 to-teal-600",
-    bg: "bg-cyan-50 dark:bg-cyan-950/30",
-    iconColor: "text-cyan-600 dark:text-cyan-400",
-    highlight: false,
+      "Fare comparison and ticketing for study, business or leisure travel, including group bookings and flexible student fares where available.",
   },
   {
     icon: Map,
-    title: "Tours & Holiday Packages",
+    title: "Tours & holiday packages",
     description:
-      "Custom-designed vacation, sightseeing, and group tour packages to top destinations worldwide — for individuals, families, and corporate groups.",
-    color: "from-emerald-500 to-cyan-600",
-    bg: "bg-emerald-50 dark:bg-emerald-950/30",
-    iconColor: "text-emerald-600 dark:text-emerald-400",
-    highlight: false,
+      "Tailored holiday, sightseeing and group tour itineraries for individuals, families and corporate groups.",
   },
   {
     icon: Home,
-    title: "Accommodation & Hotel Booking",
+    title: "Accommodation booking",
     description:
-      "Accommodation search and booking — student halls, shared apartments, and homestays, plus hotel reservations for vacations and business trips.",
-    color: "from-emerald-600 to-green-500",
-    bg: "bg-emerald-50 dark:bg-emerald-950/30",
-    iconColor: "text-emerald-600 dark:text-emerald-400",
-    highlight: false,
+      "Student halls, shared apartments and homestays near your campus, plus hotel reservations for holidays and business trips.",
   },
   {
     icon: Car,
-    title: "Airport Pickup",
+    title: "Airport pickup",
     description:
-      "Reliable airport transfer services at your destination. Our local partners ensure a smooth, stress-free arrival experience.",
-    color: "from-teal-600 to-emerald-500",
-    bg: "bg-teal-50 dark:bg-teal-950/30",
-    iconColor: "text-teal-600 dark:text-teal-400",
-    highlight: false,
+      "Arrival transfers arranged with local partners at your destination, so your first hour in a new country is already handled.",
   },
   {
     icon: FileStack,
-    title: "Document Authentication",
+    title: "Document authentication",
     description:
-      "Professional certification and authentication of educational and personal documents for international recognition.",
-    color: "from-green-600 to-teal-500",
-    bg: "bg-green-50 dark:bg-green-950/30",
-    iconColor: "text-green-600 dark:text-green-400",
-    highlight: false,
+      "Certification and authentication of educational and personal documents so they are recognised by institutions abroad.",
   },
   {
     icon: Shield,
-    title: "Travel Insurance",
+    title: "Travel insurance",
     description:
-      "Comprehensive travel and student insurance packages to keep you protected throughout your international journey.",
-    color: "from-cyan-600 to-green-500",
-    bg: "bg-cyan-50 dark:bg-cyan-950/30",
-    iconColor: "text-cyan-600 dark:text-cyan-400",
-    highlight: false,
+      "Travel and student insurance cover arranged alongside your booking, matched to your destination's visa requirements.",
   },
 ];
 
 export default function Services() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section
-      id="services"
-      className="section-padding bg-background"
-      aria-labelledby="services-heading"
-      ref={ref}
-    >
-      <div className="max-w-7xl mx-auto">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-14"
-        >
-          <span className="inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
-            What We Offer
-          </span>
+    <section id="services" className="section" aria-labelledby="services-heading">
+      <div className="shell">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="eyebrow">What we offer</p>
           <h2
             id="services-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white mb-4"
+            className="mt-3 text-(length:--text-h2) font-extrabold text-ink"
           >
-            Premium Services,{" "}
-            <span className="gradient-text">One Destination</span>
+            Nine services, <span className="brand-text">one relationship</span>
           </h2>
-          <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-            From first enquiry to landing abroad and your next holiday — we handle everything.
-            Xlinks is your one-stop solution for all education and travel needs.
+          <p className="lede mt-4">
+            Most people arrive needing three or four of these at once. Handling
+            them together is what keeps the timeline — and the paperwork — from
+            falling apart.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Services grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {services.map((service, i) => {
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((service) => {
             const Icon = service.icon;
             return (
-              <motion.article
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className={`group relative rounded-2xl p-6 border transition-all duration-300 hover:-translate-y-1 cursor-default ${
-                  service.highlight
-                    ? "bg-gradient-to-br from-emerald-600 to-teal-700 border-transparent shadow-xl shadow-emerald-500/30 text-white"
-                    : "bg-white dark:bg-gray-900/80 border-gray-100 dark:border-gray-800 hover:border-emerald-200 dark:hover:border-emerald-800 hover:shadow-lg"
+              <li
+                key={service.title}
+                className={`reveal relative flex flex-col rounded-2xl border p-6 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                  service.featured
+                    ? "border-transparent bg-brand-800 text-white shadow-lg dark:bg-brand-800"
+                    : "border-hairline bg-surface shadow-sm"
                 }`}
               >
-                {service.highlight && (
-                  <span className="absolute top-4 right-4 text-xs font-bold bg-white/20 text-white px-2.5 py-1 rounded-full">
-                    Most Popular
+                {service.featured && (
+                  <span className="absolute top-6 right-6 rounded-full bg-accent-400 px-2.5 py-1 font-display text-2xs font-bold text-brand-950">
+                    Most requested
                   </span>
                 )}
-                <div
-                  className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
-                    service.highlight ? "bg-white/20" : service.bg
+
+                <span
+                  className={`flex h-12 w-12 items-center justify-center rounded-xl ${
+                    service.featured
+                      ? "bg-white/15"
+                      : "bg-brand-50 dark:bg-brand-950/60"
                   }`}
                 >
                   <Icon
-                    className={`w-6 h-6 ${service.highlight ? "text-white" : service.iconColor}`}
+                    className={`h-6 w-6 ${
+                      service.featured
+                        ? "text-white"
+                        : "text-brand-700 dark:text-brand-300"
+                    }`}
                     aria-hidden="true"
                   />
-                </div>
+                </span>
+
                 <h3
-                  className={`text-base font-bold mb-2 ${
-                    service.highlight ? "text-white" : "text-gray-900 dark:text-white"
+                  className={`mt-5 font-display text-base font-bold ${
+                    service.featured ? "text-white" : "text-ink"
                   }`}
                 >
                   {service.title}
                 </h3>
                 <p
-                  className={`text-sm leading-relaxed ${
-                    service.highlight ? "text-white/80" : "text-gray-500 dark:text-gray-400"
+                  className={`mt-2 text-sm leading-relaxed ${
+                    service.featured ? "text-white/80" : "text-ink-subtle"
                   }`}
                 >
                   {service.description}
                 </p>
-              </motion.article>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );

@@ -3,7 +3,14 @@
     "allow": [
       "Bash(xargs sed -i 's/Xlinks Education and Travel Consult/Xlinks Educational and Travel Consult/g')",
       "Bash(netstat -ano)",
-      "Bash(taskkill //F //PID 27860)"
+      "Bash(taskkill //F //PID 27860)",
+      "Bash(sort -t/ -k3 -n)",
+      "Bash(awk -F'text-white/' '{print $2, $0}')",
+      "Bash(uniq -c -f0)",
+      "Bash(pkill -f \"next start\")",
+      "Bash(npx eslint *)",
+      "Bash(echo \"LINT_EXIT=$?\")",
+      "Bash(echo \"TSC_EXIT=$?\")"
     ]
   }
 }

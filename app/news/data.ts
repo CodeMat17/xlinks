@@ -1,6 +1,8 @@
 export const articles = [
   {
     slug: "xlinks-celebrates-500-students-placed-abroad",
+    isoDate: "2025-05-15",
+    topic: "Company news",
     date: "May 2025",
     title: "Xlinks Celebrates 500+ Students Successfully Placed Abroad",
     excerpt:
@@ -8,12 +10,14 @@ export const articles = [
     photoUrl: "/images/news/xlinks-500-students.jpg",
     body: [
       "Since opening our doors in Port Harcourt, Xlinks has been driven by one mission: to make world-class international education accessible to every ambitious Nigerian student. Reaching the 500-placement milestone is not simply a number — it represents 500 families whose hopes and sacrifices were honoured, 500 students who now walk the corridors of universities in the UK, Canada, Australia, Ireland, Malta, and Germany. Our counsellors remember each application, each visa interview, each tearful farewell at the airport, and each triumphant first message from a student who landed safely abroad.",
-      "The journey to this milestone was built on trust and relentless attention to detail. From the very first consultation to post-arrival support, our team has refined every step of the placement process. We invested in certified IELTS and TOEFL preparation programmes, forged direct relationships with over 200 partner institutions worldwide, and trained our visa consultants to navigate even the most complex application scenarios. That commitment to excellence is why more than 80% of our clients return to refer a friend or family member.",
+      "The journey to this milestone was built on trust and relentless attention to detail. From the very first consultation to post-arrival support, our team has refined every step of the placement process. We invested in certified IELTS and TOEFL preparation programmes, built direct relationships with our 50+ partner institutions worldwide, and trained our visa consultants to navigate even the most complex application scenarios. A large share of the students who come to us arrive on the recommendation of someone we placed before them, which is the endorsement we value most.",
       "As we celebrate this achievement, we are already focused on the next chapter. Our newly opened Abuja office brings our services to students in the FCT and across northern Nigeria. We are also rolling out a dedicated scholarship advisory unit to help more students access fully-funded opportunities. To every student who trusted Xlinks with their dream — thank you. You are the reason we show up every day, and the best is absolutely still ahead.",
     ],
   },
   {
     slug: "top-5-reasons-to-study-in-the-uk-2025",
+    isoDate: "2025-04-15",
+    topic: "Study abroad",
     date: "April 2025",
     title: "Top 5 Reasons to Study in the United Kingdom in 2025",
     excerpt:
@@ -27,6 +31,8 @@ export const articles = [
   },
   {
     slug: "how-to-pass-ielts-on-first-attempt",
+    isoDate: "2025-03-15",
+    topic: "Language training",
     date: "March 2025",
     title: "How to Pass Your IELTS Exam on the First Attempt",
     excerpt:
@@ -35,11 +41,13 @@ export const articles = [
     body: [
       "The International English Language Testing System is the gateway to study visas, university admissions, and professional registration in English-speaking countries, yet it remains one of the most misunderstood exams Nigerian students sit. The most common mistake our instructors see is treating IELTS like a school exam that rewards memorisation. It does not. The test measures how fluently and accurately you use English in real-world contexts — listening to a lecture, reading an academic article, writing an analytical essay, and holding a structured conversation. Students who prepare by reading widely, listening to English podcasts daily, and practising writing under timed conditions consistently outperform those who rely on cramming past papers alone.",
       "For the Listening and Reading modules, time management is everything. You have sixty minutes for forty questions in Reading — that is ninety seconds per question. Train yourself to skim for main ideas first, then scan for specific information. In Listening, the audio plays only once, so practise following spoken English at natural speed using BBC World Service, TED Talks, and academic lecture recordings. For Writing, Task 2 carries more marks than Task 1 — invest more preparation time there. Learn to structure an argument clearly: introduce the topic, present both sides fairly, give your own supported position, and conclude decisively. Examiners reward coherent logical progression, not flowery vocabulary.",
-      "Speaking is where many candidates lose marks they should not. The Speaking test is a conversation, not a performance — your examiner is trained to put you at ease, so speak naturally rather than reciting rehearsed speeches, which examiners detect immediately. Practise speaking on unfamiliar topics for two minutes without stopping, and record yourself to identify pronunciation habits that affect clarity. At Xlinks, our IELTS preparation programme runs over six weeks and includes two full mock tests with detailed band-score feedback. Students who complete the programme achieve their target band on the first attempt at a rate of over 85%. Book a free assessment with our team to find out where you stand today.",
+      "Speaking is where many candidates lose marks they should not. The Speaking test is a conversation, not a performance — your examiner is trained to put you at ease, so speak naturally rather than reciting rehearsed speeches, which examiners detect immediately. Practise speaking on unfamiliar topics for two minutes without stopping, and record yourself to identify pronunciation habits that affect clarity. At Xlinks, our IELTS preparation programme runs over six weeks and includes two full mock tests with detailed band-score feedback, so you know exactly where you stand before you book the real thing. Book a free assessment with our team to find out where you stand today.",
     ],
   },
   {
     slug: "malta-hidden-gem-for-nigerian-students-in-europe",
+    isoDate: "2025-02-15",
+    topic: "Study abroad",
     date: "February 2025",
     title: "Malta: The Hidden Gem for Nigerian Students in Europe",
     excerpt:
@@ -53,6 +61,8 @@ export const articles = [
   },
   {
     slug: "family-holiday-review-dubai-maldives-xlinks-travel",
+    isoDate: "2025-01-15",
+    topic: "Travel",
     date: "January 2025",
     title: "A Family Holiday Review: Dubai & Maldives with Xlinks Travel",
     excerpt:
@@ -66,6 +76,8 @@ export const articles = [
   },
   {
     slug: "canada-vs-australia-which-is-better-for-nigerian-students",
+    isoDate: "2024-12-15",
+    topic: "Study abroad",
     date: "December 2024",
     title: "Canada vs. Australia: Which Is Better for Nigerian Students?",
     excerpt:
@@ -79,6 +91,8 @@ export const articles = [
   },
   {
     slug: "schengen-visa-guide-nigerian-students-2025",
+    isoDate: "2024-11-15",
+    topic: "Visas",
     date: "November 2024",
     title: "Complete Schengen Visa Guide for Nigerian Students in 2025",
     excerpt:
@@ -92,6 +106,8 @@ export const articles = [
   },
   {
     slug: "best-scholarships-nigerian-students-2025",
+    isoDate: "2024-10-15",
+    topic: "Funding",
     date: "October 2024",
     title: "10 Best Scholarships Available to Nigerian Students in 2025",
     excerpt:
@@ -105,6 +121,8 @@ export const articles = [
   },
   {
     slug: "germany-tuition-free-universities-nigerians",
+    isoDate: "2024-09-15",
+    topic: "Study abroad",
     date: "September 2024",
     title: "Germany's Tuition-Free Universities: What Nigerian Students Need to Know",
     excerpt:
@@ -118,6 +136,8 @@ export const articles = [
   },
   {
     slug: "xlinks-new-office-abuja-launch",
+    isoDate: "2024-08-15",
+    topic: "Company news",
     date: "August 2024",
     title: "Xlinks Opens New Consultation Office in Abuja",
     excerpt:
@@ -131,6 +151,8 @@ export const articles = [
   },
   {
     slug: "student-visa-interview-tips-uk-us-canada",
+    isoDate: "2024-07-15",
+    topic: "Visas",
     date: "July 2024",
     title: "Student Visa Interview Tips for UK, US & Canada Applications",
     excerpt:
@@ -144,6 +166,8 @@ export const articles = [
   },
   {
     slug: "europe-summer-travel-packages-2024",
+    isoDate: "2024-06-15",
+    topic: "Travel",
     date: "June 2024",
     title: "Our Best Europe Summer Travel Packages for 2024",
     excerpt:
@@ -157,6 +181,8 @@ export const articles = [
   },
   {
     slug: "studying-in-ireland-complete-guide-nigerians",
+    isoDate: "2024-05-15",
+    topic: "Study abroad",
     date: "May 2024",
     title: "Studying in Ireland: A Complete Guide for Nigerian Students",
     excerpt:

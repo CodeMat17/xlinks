@@ -1,25 +1,40 @@
 import type { Metadata } from "next";
-import NewsImage from "@/components/NewsImage";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft, ArrowRight, Calendar, ChevronRight } from "lucide-react";
 import PageWrapper from "@/components/PageWrapper";
-import { ArrowLeft, Calendar } from "lucide-react";
+import ArticleCover from "@/components/ArticleCover";
 import { articles } from "../data";
 import ShareButton from "./ShareButton";
+import { siteName, siteUrl } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   return articles.map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = articles.find((a) => a.slug === slug);
-  if (!article) return { title: "Article Not Found" };
+  if (!article) return { title: "Article not found" };
+
   return {
     title: article.title,
     description: article.excerpt,
+    alternates: { canonical: `/news/${article.slug}` },
+    openGraph: {
+      type: "article",
+      title: article.title,
+      description: article.excerpt,
+      url: `${siteUrl}/news/${article.slug}`,
+      publishedTime: article.isoDate,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+    },
   };
 }
 
@@ -31,107 +46,188 @@ export default async function NewsArticlePage({ params }: Props) {
 
   const related = articles.filter((a) => a.slug !== slug).slice(0, 3);
 
+  const articleLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${siteUrl}/news/${article.slug}#article`,
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: article.isoDate,
+    dateModified: article.isoDate,
+    articleSection: article.topic,
+    inLanguage: "en-NG",
+    author: { "@id": `${siteUrl}/#organization` },
+    publisher: { "@id": `${siteUrl}/#organization` },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/news/${article.slug}`,
+    },
+    isPartOf: { "@id": `${siteUrl}/news#blog` },
+  };
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
+      { "@type": "ListItem", position: 2, name: "News", item: `${siteUrl}/news` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: article.title,
+        item: `${siteUrl}/news/${article.slug}`,
+      },
+    ],
+  };
+
   return (
     <PageWrapper>
-      {/* Hero */}
-      <section className="relative pt-24 pb-12 gradient-bg overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-          }}
-          aria-hidden="true"
-        />
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Link
-            href="/news"
-            className="inline-flex items-center gap-2 text-white/70 hover:text-white text-sm font-semibold mb-6 transition-colors">
-            <ArrowLeft className="w-4 h-4" />
-            Back to News
-          </Link>
-          <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
-            <span className="text-white/60 text-sm flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5" />
-              {article.date}
-            </span>
-            <ShareButton title={article.title} />
+      {/* ---------- Header ---------- */}
+      <header className="brand-gradient relative isolate overflow-hidden">
+        <div className="dot-field pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+
+        <div className="shell relative pt-28 pb-14 sm:pt-32">
+          <nav aria-label="Breadcrumb" className="mx-auto max-w-3xl">
+            <ol className="flex flex-wrap items-center gap-1 text-sm">
+              <li>
+                <Link href="/" className="text-white/70 transition-colors hover:text-white">
+                  Home
+                </Link>
+              </li>
+              <li className="flex items-center gap-1">
+                <ChevronRight className="h-3.5 w-3.5 text-white/40" aria-hidden="true" />
+                <Link href="/news" className="text-white/70 transition-colors hover:text-white">
+                  News
+                </Link>
+              </li>
+            </ol>
+          </nav>
+
+          <div className="mx-auto mt-8 max-w-3xl">
+            <p className="font-display text-2xs font-bold tracking-[0.16em] text-brand-300 uppercase">
+              {article.topic}
+            </p>
+            <h1 className="mt-3 text-(length:--text-h1) font-extrabold text-white">
+              {article.title}
+            </h1>
+
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+              <p className="flex items-center gap-1.5 text-sm text-white/70">
+                <Calendar className="h-4 w-4" aria-hidden="true" />
+                <time dateTime={article.isoDate}>{article.date}</time>
+              </p>
+              <ShareButton title={article.title} />
+            </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
-            {article.title}
-          </h1>
         </div>
-      </section>
+      </header>
 
-      {/* Article Body */}
-      <section className="section-padding bg-background">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden mb-10">
-            <NewsImage
-              src={article.photoUrl}
-              alt={article.title}
-              fill
-              className=""
-              sizes="(max-width: 896px) 100vw, 896px"
-
+      {/* ---------- Body ---------- */}
+      <article className="section">
+        <div className="shell">
+          <div className="mx-auto max-w-3xl">
+            <ArticleCover
+              photoUrl={article.photoUrl}
+              topic={article.topic}
+              title={article.title}
+              sizes="(min-width: 768px) 48rem, 92vw"
+              priority
+              className="aspect-video w-full rounded-2xl"
             />
-          </div>
 
-          <div className="prose prose-lg dark:prose-invert max-w-none">
-            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6 font-medium">
+            <p className="mt-10 text-(length:--text-fluid-lg) leading-relaxed font-medium text-ink">
               {article.excerpt}
             </p>
-            {article.body.map((paragraph, i) => (
-              <p key={i} className="text-gray-700 dark:text-gray-300 leading-relaxed mb-5">
-                {paragraph}
+
+            <div className="mt-6 space-y-5">
+              {article.body.map((paragraph, i) => (
+                <p key={i} className="leading-relaxed text-ink-muted">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+
+            {/* Inline CTA */}
+            <aside className="card mt-12 p-6 sm:p-8">
+              <h2 className="font-display text-base font-bold text-ink">
+                Thinking about making the move?
+              </h2>
+              <p className="mt-2 text-sm text-ink-muted">
+                Talk it through with an adviser at {siteName}. The first
+                consultation is free and there is no obligation.
               </p>
-            ))}
-          </div>
+              <Link href="/contact" className="btn-primary mt-5">
+                Book a free consultation
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </aside>
 
-          <div className="mt-10 pt-8 border-t border-gray-100 dark:border-gray-800">
-            <Link
-              href="/news"
-              className="inline-flex items-center gap-2 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:gap-3 transition-all">
-              <ArrowLeft className="w-4 h-4" />
-              Back to all news
-            </Link>
+            <p className="mt-10 border-t border-hairline pt-8">
+              <Link
+                href="/news"
+                className="inline-flex items-center gap-2 font-display text-sm font-bold text-brand-700 dark:text-brand-300"
+              >
+                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                Back to all news
+              </Link>
+            </p>
           </div>
+        </div>
+      </article>
 
-          {/* Related articles */}
-          {related.length > 0 && (
-            <div className="mt-16">
-              <h2 className="text-xl font-black text-gray-900 dark:text-white mb-6">Related Articles</h2>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {related.map((rel) => (
+      {/* ---------- Related ---------- */}
+      {related.length > 0 && (
+        <section className="section bg-surface-raised" aria-labelledby="related-heading">
+          <div className="shell">
+            <h2
+              id="related-heading"
+              className="font-display text-(length:--text-h3) font-extrabold text-ink"
+            >
+              Related articles
+            </h2>
+
+            <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {related.map((rel) => (
+                <li key={rel.slug}>
                   <Link
-                    key={rel.slug}
                     href={`/news/${rel.slug}`}
-                    className="group bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-emerald-200 dark:hover:border-emerald-800 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 overflow-hidden">
-                    <div className="relative aspect-video">
-                      <NewsImage
-                        src={rel.photoUrl}
-                        alt={rel.title}
-                        fill
-                        className=""
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      />
-                    </div>
-                    <div className="p-4">
-                      <h3 className="text-sm font-black text-gray-900 dark:text-white leading-snug group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                    className="card-interactive group flex h-full flex-col overflow-hidden"
+                  >
+                    <ArticleCover
+                      photoUrl={rel.photoUrl}
+                      topic={rel.topic}
+                      title={rel.title}
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 92vw"
+                      className="aspect-video w-full"
+                    />
+                    <div className="flex flex-1 flex-col p-5">
+                      <span className="font-display text-2xs font-bold tracking-[0.14em] text-brand-700 uppercase dark:text-brand-300">
+                        {rel.topic}
+                      </span>
+                      <h3 className="mt-2 font-display text-sm leading-snug font-bold text-ink">
                         {rel.title}
                       </h3>
-                      <p className="text-xs text-gray-400 mt-2 flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
-                        {rel.date}
+                      <p className="mt-3 flex items-center gap-1.5 text-sm text-ink-subtle">
+                        <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
+                        <time dateTime={rel.isoDate}>{rel.date}</time>
                       </p>
                     </div>
                   </Link>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
     </PageWrapper>
   );
 }

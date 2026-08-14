@@ -1,116 +1,67 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
-import { Users, Globe, Building2, TrendingUp } from "lucide-react";
+import { Building2, Globe, ShieldCheck, Users } from "lucide-react";
 
+/**
+ * Static server component. The previous version pulled framer-motion plus an
+ * IntersectionObserver into the client bundle to animate numbers counting up —
+ * a decorative effect that delayed the numbers being readable and inflated JS
+ * on the most-visited page. Numbers now render in the first paint.
+ */
 const stats = [
   {
     icon: Users,
-    value: 500,
-    suffix: "+",
-    label: "Students Placed",
-    description: "Successfully admitted worldwide",
-    color: "text-emerald-600 dark:text-emerald-400",
-    bg: "bg-emerald-100 dark:bg-emerald-950/50",
+    value: "500+",
+    label: "Students placed",
+    detail: "Admitted to universities abroad since 2023",
   },
   {
     icon: Globe,
-    value: 11,
-    suffix: "+",
-    label: "Travel Destinations",
-    description: "Study & holiday destinations covered",
-    color: "text-teal-600 dark:text-teal-400",
-    bg: "bg-teal-100 dark:bg-teal-950/50",
+    value: "11",
+    label: "Destinations",
+    detail: "Study and travel countries we cover",
   },
   {
     icon: Building2,
-    value: 50,
-    suffix: "+",
-    label: "Partner Universities",
-    description: "Accredited institutions worldwide",
-    color: "text-green-600 dark:text-green-400",
-    bg: "bg-green-100 dark:bg-green-950/50",
+    value: "50+",
+    label: "Partner universities",
+    detail: "Institutions we submit applications to",
   },
   {
-    icon: TrendingUp,
-    value: 98,
-    suffix: "%",
-    label: "Visa Success Rate",
-    description: "Industry-leading approval record",
-    color: "text-cyan-600 dark:text-cyan-400",
-    bg: "bg-cyan-100 dark:bg-cyan-950/50",
+    icon: ShieldCheck,
+    value: "End to end",
+    label: "Visa support",
+    detail: "Documents, coaching and submission",
   },
-  // {
-  //   icon: Trophy,
-  //   value: 2,
-  //   suffix: "+ yrs",
-  //   label: "Years of Excellence",
-  //   description: "Established September 30, 2023",
-  //   color: "text-emerald-600 dark:text-emerald-400",
-  //   bg: "bg-emerald-100 dark:bg-emerald-950/50",
-  // },
 ];
 
-function CountUp({ target, suffix }: { target: number; suffix: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
-  useEffect(() => {
-    if (!inView) return;
-    let start = 0;
-    const duration = 1800;
-    const step = target / (duration / 16);
-    const timer = setInterval(() => {
-      start = Math.min(start + step, target);
-      setCount(Math.floor(start));
-      if (start >= target) clearInterval(timer);
-    }, 16);
-    return () => clearInterval(timer);
-  }, [inView, target]);
-
-  return (
-    <span ref={ref} aria-label={`${target}${suffix}`}>
-      {count}
-      {suffix}
-    </span>
-  );
-}
-
 export default function Stats() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
-    <section
-      className="py-16 bg-gradient-to-b from-background via-emerald-50/30 to-background dark:via-emerald-950/20"
-      aria-label="Our achievements and statistics"
-      ref={ref}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
-          {stats.map((stat, i) => {
+    <section className="section-tight" aria-label="Xlinks at a glance">
+      <div className="shell">
+        <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <motion.article
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className={`group bg-white dark:bg-gray-900/80 rounded-2xl p-5 text-center shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-lg hover:border-emerald-200 dark:hover:border-emerald-800 transition-all duration-300 hover:-translate-y-1${i === stats.length - 1 && stats.length % 2 !== 0 ? " col-span-2 max-w-[50%] mx-auto w-full md:col-span-1 md:max-w-none md:mx-0" : ""}`}
+              <li
+                key={stat.label}
+                className="card-interactive reveal flex flex-col p-5 sm:p-6"
               >
-                <div className={`w-12 h-12 rounded-xl ${stat.bg} flex items-center justify-center mx-auto mb-3`}>
-                  <Icon className={`w-6 h-6 ${stat.color}`} aria-hidden="true" />
-                </div>
-                <div className={`text-3xl font-black ${stat.color} mb-1`}>
-                  <CountUp target={stat.value} suffix={stat.suffix} />
-                </div>
-                <div className="text-sm font-bold text-gray-800 dark:text-gray-100 mb-1">{stat.label}</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">{stat.description}</div>
-              </motion.article>
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-950/60">
+                  <Icon
+                    className="h-5 w-5 text-brand-700 dark:text-brand-300"
+                    aria-hidden="true"
+                  />
+                </span>
+                <p className="mt-4 font-display text-2xl font-extrabold text-ink sm:text-3xl">
+                  {stat.value}
+                </p>
+                <p className="mt-1 font-display text-sm font-bold text-ink">
+                  {stat.label}
+                </p>
+                <p className="mt-1.5 text-sm text-ink-subtle">{stat.detail}</p>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </section>
   );

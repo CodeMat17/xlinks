@@ -1,227 +1,221 @@
-"use client";
-import { useState } from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowRight, ChevronDown, Phone } from "lucide-react";
 import PageWrapper from "@/components/PageWrapper";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import PageHero from "@/components/PageHero";
+import { contact } from "@/lib/site";
 
+export const metadata: Metadata = {
+  title: "Frequently Asked Questions",
+  description:
+    "Answers on studying abroad from Nigeria: admissions timelines, required documents, visa processing, IELTS and language courses, flights, tours and our Port Harcourt office hours.",
+  alternates: { canonical: "/faqs" },
+};
+
+/**
+ * One source of truth for both the rendered accordion and the FAQPage
+ * structured data below, so an answer can never appear on the page in one
+ * wording and in search results in another.
+ *
+ * Several answers were softened from the previous copy: the "98% visa success
+ * rate — one of the highest in Nigeria", the "most trusted consultancy in
+ * Rivers State" claim, and the IELTS band-score prediction were all specific
+ * or superlative claims we cannot evidence. FAQ answers are quoted directly
+ * into search results, so unverifiable claims carry the most risk here.
+ */
 const faqGroups = [
   {
-    category: "General Questions",
-    color: "text-emerald-600 dark:text-emerald-400",
-    bg: "bg-emerald-50 dark:bg-emerald-950/30",
+    category: "General",
     faqs: [
       {
         q: "What is Xlinks Educational and Travel Consult?",
-        a: "Xlinks Educational and Travel Consult is a licensed study abroad and travel agency based in Port Harcourt, Nigeria. We provide end-to-end services for students seeking to study internationally and for individuals and families planning travel — including university admissions, visa processing, language training, flight booking, and holiday packages.",
+        a: "Xlinks Educational and Travel Consult is a registered study abroad and travel agency based in Port Harcourt, Nigeria. We provide end-to-end support for students applying to universities abroad and for individuals and families planning travel — covering admissions, visa processing, language training, flight booking and holiday packages.",
       },
       {
         q: "Where is your office located?",
-        a: "Our office is at No. 35 Ndele Street, Bishop House, D-Line, Port Harcourt, Rivers State, Nigeria. We are open Monday–Friday 8:00 am–6:00 pm and Saturday 9:00 am–3:00 pm. Walk-ins and appointments are both welcome.",
+        a: `Our office is at ${contact.street}, ${contact.city}, ${contact.region}, Nigeria. We are open Monday to Friday, 8:00 am to 6:00 pm, and Saturday, 9:00 am to 3:00 pm. Walk-ins and appointments are both welcome.`,
       },
       {
         q: "Do you charge a consultation fee?",
-        a: "No — your initial consultation with our advisors is completely free. We believe in helping you make the right decision before any commitment is made.",
+        a: "No. Your initial consultation is free. We would rather you understand your options properly before committing to anything.",
       },
       {
         q: "How long has Xlinks been in operation?",
-        a: "Xlinks was established on 30th September 2023. In a short time, we have placed over 500 students in universities across 11 countries and grown into one of the most trusted education and travel consultancies in Rivers State.",
+        a: "Xlinks was established on 30 September 2023. Since then we have placed over 500 students at universities across 11 countries and expanded into language training and travel services.",
       },
     ],
   },
   {
-    category: "Study Abroad",
-    color: "text-teal-600 dark:text-teal-400",
-    bg: "bg-teal-50 dark:bg-teal-950/30",
+    category: "Study abroad",
     faqs: [
       {
         q: "Which countries do you support for university admissions?",
-        a: "We support admissions to universities in the United Kingdom, Canada, United States, Australia, Ireland, Malta, Finland, Austria, China, Cyprus, and New Zealand — a total of 11 countries with 50+ partner institutions.",
+        a: "We support admissions to universities in the United Kingdom, Canada, the United States, Australia, Ireland, Malta, Finland, Austria, China, Cyprus and New Zealand — 11 countries in total, with 50+ partner institutions.",
       },
       {
         q: "How long does the admissions process take?",
-        a: "It depends on the destination and institution. UK admissions via UCAS can take 4–8 weeks after submission. Canadian and Australian applications typically take 6–12 weeks. We manage the entire timeline and keep you updated every step of the way.",
+        a: "It depends on the destination and the institution. UK admissions through UCAS commonly take four to eight weeks after submission. Canadian and Australian applications typically take six to twelve weeks. We manage the timeline and keep you updated throughout.",
       },
       {
         q: "What documents do I need to start my application?",
-        a: "Typically you will need: academic transcripts and certificates, a valid international passport, a statement of purpose, references/recommendation letters, proof of English proficiency (e.g. IELTS score), and a CV/resume. Our advisors will give you a tailored document checklist based on your chosen destination and programme.",
+        a: "Usually: academic transcripts and certificates, a valid international passport, a statement of purpose, reference letters, proof of English proficiency such as an IELTS score, and a CV. We give you a tailored checklist once we know your destination and programme.",
       },
       {
         q: "Do you help with scholarship applications?",
-        a: "Yes. While we do not provide scholarships ourselves, our advisors are experienced in identifying scholarship opportunities at partner universities and government-funded programmes, and we guide you through the application process.",
+        a: "Yes. We do not award scholarships ourselves, but we identify scholarship and bursary opportunities at partner universities and government-funded schemes, and guide you through applying for them.",
       },
       {
         q: "Can I apply to multiple universities?",
-        a: "Absolutely. We recommend applying to a range of institutions to maximise your chances. Our team will help you prioritise universities that match your profile, budget, and career goals.",
+        a: "Yes, and we usually recommend it. Applying to a spread of institutions — some ambitious, some safe — meaningfully improves your chances. We help you prioritise based on your profile, budget and career goals.",
       },
     ],
   },
   {
-    category: "Visa Processing",
-    color: "text-blue-600 dark:text-blue-400",
-    bg: "bg-blue-50 dark:bg-blue-950/30",
+    category: "Visa processing",
     faqs: [
       {
-        q: "What is your visa success rate?",
-        a: "Our visa success rate is 98% — one of the highest in Nigeria. This is the result of meticulous document preparation, thorough interview coaching, and our experienced visa processing team.",
+        q: "How do you improve my chances of a visa approval?",
+        a: "Most avoidable refusals come down to the file rather than the applicant: missing evidence, inconsistent financials, or a weak explanation of intent. We build the document set to the specific embassy's requirements, run a compliance review before submission, and prepare you for the interview with mock questions.",
       },
       {
         q: "How long does visa processing take?",
-        a: "Processing times vary by country. UK Student Visas are typically decided within 3 weeks. Canadian Study Permits can take 8–12 weeks. Australian Student Visas are usually processed within 4–6 weeks. We track your application throughout and advise you on the best timing to apply.",
+        a: "Processing times vary by country. UK student visas are commonly decided within three weeks, Canadian study permits can take eight to twelve weeks, and Australian student visas are usually processed in four to six weeks. We advise on when to apply so the decision lands before your intake.",
       },
       {
         q: "What happens if my visa is refused?",
-        a: "In the rare event of a refusal, we analyse the refusal letter, identify the reason, and work with you on a reapplication strategy. Many of our reapplication cases have been successful. Our team will advise on the best course of action for your specific situation.",
+        a: "We go through the refusal letter with you, identify the specific ground cited, and advise honestly on whether a reapplication, an appeal or a change of plan is the better route. We will tell you if we think reapplying is unlikely to succeed.",
       },
       {
         q: "Do you offer interview coaching?",
-        a: "Yes. Our visa processing package includes interview preparation sessions where we conduct mock interviews, review likely questions, and ensure you present yourself confidently to the embassy or high commission.",
+        a: "Yes. Visa support includes preparation sessions with mock interviews and a review of the questions most likely to come up for your visa category and destination.",
       },
     ],
   },
   {
-    category: "Language Training",
-    color: "text-green-600 dark:text-green-400",
-    bg: "bg-green-50 dark:bg-green-950/30",
+    category: "Language training",
     faqs: [
       {
         q: "What languages do you teach?",
-        a: "Our in-house Language Center offers IELTS preparation (English), French (A1–C1), German (A1–B2), and Spanish (A1–B2). All courses are taught by certified instructors.",
+        a: "Our language centre offers IELTS preparation in English, plus French (A1–C1), German (A1–B2) and Spanish (A1–B2). All courses are taught by certified instructors.",
       },
       {
         q: "How long are the language courses?",
-        a: "Course duration varies by programme and starting level. Our intensive IELTS preparation is typically 6–8 weeks. French, German, and Spanish courses range from 3 to 12 months depending on your target proficiency level.",
+        a: "It depends on the programme and your starting level. Intensive IELTS preparation typically runs six to eight weeks. French, German and Spanish courses range from three to twelve months depending on the proficiency level you are aiming for.",
       },
       {
         q: "Do you offer online classes?",
-        a: "Yes. All our language courses are available both in-person at our Port Harcourt office and online via video call. We offer morning and evening class schedules to suit working professionals and full-time students.",
+        a: "Yes. Every language course is available both in person at our Port Harcourt office and online by video call, with morning and evening schedules for working professionals and full-time students.",
       },
       {
-        q: "What IELTS band score can I expect after training?",
-        a: "Most students who complete our full IELTS preparation programme achieve a band score of 6.5 or higher. Individual results depend on your starting level and the effort you put in. We provide mock exams throughout the course to track your progress.",
+        q: "What IELTS score can I expect after training?",
+        a: "We cannot promise a band score, and you should be cautious of anyone who does — results depend on your starting level and the work you put in. What we do is run timed mock exams throughout the course so you always know where you stand and what to focus on.",
       },
     ],
   },
   {
-    category: "Travel & Tours",
-    color: "text-cyan-600 dark:text-cyan-400",
-    bg: "bg-cyan-50 dark:bg-cyan-950/30",
+    category: "Travel & tours",
     faqs: [
       {
         q: "Can you book flights for me?",
-        a: "Yes. Our travel desk arranges competitive flight bookings for individuals, families, and groups — whether for study, business, or leisure. We compare routes and fares to get you the best deal.",
+        a: "Yes. Our travel desk books flights for individuals, families and groups, whether for study, business or leisure, comparing routes and fares to find the best available option.",
       },
       {
         q: "Do you offer group travel packages?",
-        a: "Yes. We design customised group tour packages for families, corporate teams, church groups, and school excursions. Group packages often include discounted flights, shared accommodation, guided tours, and travel insurance.",
+        a: "Yes. We put together group tour packages for families, corporate teams, church groups and school excursions, which often include discounted flights, shared accommodation, guided tours and travel insurance.",
       },
       {
         q: "What is included in your holiday packages?",
-        a: "Our holiday packages are fully customisable and can include: visa assistance, round-trip flights, hotel accommodation, airport transfers, city tours and excursions, travel insurance, and emergency support while abroad.",
+        a: "Packages are built around what you need and can include visa assistance, return flights, hotel accommodation, airport transfers, city tours and excursions, travel insurance and support while you are abroad.",
       },
       {
         q: "Do you arrange airport pickup at the destination?",
-        a: "Yes. Through our network of local partners at major destinations, we can arrange reliable airport pickup and transfers to your accommodation — ensuring a smooth and stress-free arrival.",
+        a: "Yes. Through local partners at major destinations we arrange airport pickup and transfer to your accommodation, so your arrival is already sorted before you land.",
       },
     ],
   },
 ];
 
-function FAQItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
-      <button
-        onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left bg-white dark:bg-gray-900 hover:bg-emerald-50/50 dark:hover:bg-emerald-950/20 transition-colors"
-        aria-expanded={open}>
-        <span className="font-bold text-gray-900 dark:text-white text-sm leading-snug">{q}</span>
-        <ChevronDown
-          className={`w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-          aria-hidden="true"
-        />
-      </button>
-      {open && (
-        <div className="px-5 pb-5 pt-2 bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800">
-          <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{a}</p>
-        </div>
-      )}
-    </div>
-  );
-}
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqGroups.flatMap((group) =>
+    group.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  ),
+};
 
 export default function FAQsPage() {
   return (
     <PageWrapper>
-      {/* Page Hero */}
-      <section className="relative pt-24 pb-16 gradient-bg overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-          }}
-          aria-hidden="true"
-        />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block text-sm font-bold text-emerald-300 uppercase tracking-widest mb-3">
-            Got Questions?
-          </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-5 leading-tight">
-            Frequently Asked <span className="text-emerald-300">Questions</span>
-          </h1>
-          <p className="text-lg text-white/75 max-w-2xl mx-auto leading-relaxed">
-            Everything you need to know about studying abroad, visa processing, language
-            training, and travel with Xlinks. Can&apos;t find your answer? Contact us directly.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Got questions?"
+        title="Frequently asked"
+        highlight="questions"
+        lede="Admissions, visas, language training and travel — the questions we get asked most, answered straight."
+        crumbs={[{ href: "/faqs", label: "FAQs" }]}
+      />
 
-      {/* FAQ Content */}
-      <section className="section-padding bg-background">
-        <div className="max-w-4xl mx-auto">
-          <div className="space-y-12">
-            {faqGroups.map((group, gi) => (
-              <div key={gi}>
-                <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl ${group.bg} mb-6`}>
-                  <span className={`text-sm font-black uppercase tracking-widest ${group.color}`}>
-                    {group.category}
-                  </span>
-                </div>
-                <div className="space-y-3">
-                  {group.faqs.map((faq, fi) => (
-                    <FAQItem key={fi} q={faq.q} a={faq.a} />
-                  ))}
-                </div>
+      <section className="section" aria-label="Frequently asked questions">
+        <div className="shell-narrow">
+          {faqGroups.map((group) => (
+            <div key={group.category} className="mt-12 first:mt-0">
+              <h2 className="eyebrow">{group.category}</h2>
+
+              <div className="mt-5 space-y-3">
+                {group.faqs.map((faq) => (
+                  /* Native <details> keeps every answer in the DOM for
+                     crawlers and screen readers, and needs no JavaScript. */
+                  <details
+                    key={faq.q}
+                    name={group.category}
+                    className="group card overflow-hidden"
+                  >
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-display text-sm font-bold text-ink transition-colors hover:bg-brand-50 dark:hover:bg-brand-950/40 [&::-webkit-details-marker]:hidden">
+                      {faq.q}
+                      <ChevronDown
+                        className="h-5 w-5 shrink-0 text-brand-700 transition-transform duration-200 group-open:rotate-180 dark:text-brand-300"
+                        aria-hidden="true"
+                      />
+                    </summary>
+                    <p className="border-t border-hairline px-5 py-4 text-sm leading-relaxed text-ink-muted">
+                      {faq.a}
+                    </p>
+                  </details>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
 
-          {/* Still have questions */}
-          <div className="mt-16 text-center py-12 px-6 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 rounded-3xl border border-emerald-100 dark:border-emerald-900/50">
-            <div className="text-4xl mb-4" aria-hidden="true">💬</div>
-            <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-3">
-              Still Have Questions?
+          {/* Still stuck */}
+          <div className="card mt-16 p-8 text-center sm:p-10">
+            <h2 className="text-(length:--text-h3) font-extrabold text-ink">
+              Still have a question?
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 mb-6 max-w-md mx-auto">
-              Our expert advisors are happy to answer any question you have — free of charge,
-              no commitment required.
+            <p className="mx-auto mt-3 max-w-md text-sm text-ink-muted">
+              Ask us directly. There is no charge for a conversation and no
+              obligation afterwards.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 transition-all duration-200 hover:-translate-y-0.5">
-                Contact Us
-                <ArrowRight className="w-5 h-5" aria-hidden="true" />
+            <div className="mt-7 flex flex-wrap justify-center gap-3">
+              <Link href="/contact" className="btn-primary">
+                Contact us
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
-              <a
-                href="tel:+2349134523615"
-                className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-emerald-600 text-emerald-600 dark:text-emerald-400 dark:border-emerald-500 font-bold rounded-xl hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 dark:hover:text-white transition-all duration-200">
-                Call Us Now
+              <a href={contact.phoneHref} className="btn-outline">
+                <Phone className="h-4 w-4" aria-hidden="true" />
+                {contact.phone}
               </a>
             </div>
           </div>
         </div>
       </section>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
     </PageWrapper>
   );
 }

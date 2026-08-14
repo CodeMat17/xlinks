@@ -1,46 +1,37 @@
-"use client";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import Link from "next/link";
 import {
-  FileCheck,
-  Plane,
-  MapPin,
-  ShieldCheck,
-  CheckCircle,
+  ArrowRight,
+  Check,
   ClipboardList,
+  FileCheck,
+  MapPin,
   MessageSquare,
+  Plane,
   Send,
+  ShieldCheck,
   Star,
 } from "lucide-react";
-import Link from "next/link";
+import PageHero from "@/components/PageHero";
 
 const visaTypes = [
   {
     icon: FileCheck,
-    title: "Study Visa",
+    title: "Study visa",
     description:
-      "Professional guidance for student visa applications. We help you prepare accurate documentation, meet embassy requirements, and maximise your chances of approval.",
-    bg: "bg-emerald-50 dark:bg-emerald-950/30",
-    iconColor: "text-emerald-600 dark:text-emerald-400",
-    highlight: true,
+      "Documentation, financial evidence and interview preparation for student visa applications, matched to the rules of each destination country.",
+    featured: true,
   },
   {
     icon: MapPin,
-    title: "Tourist / Visit Visa",
+    title: "Tourist & visit visa",
     description:
-      "Expert assistance with tourist and visit visa applications — documentation guidance, application processes, and clarity on embassy requirements.",
-    bg: "bg-teal-50 dark:bg-teal-950/30",
-    iconColor: "text-teal-600 dark:text-teal-400",
-    highlight: false,
+      "Guidance on embassy requirements, supporting documents and itineraries for holiday, family and business visits.",
   },
   {
     icon: Plane,
-    title: "Travel & Relocation Support",
+    title: "Travel & relocation support",
     description:
-      "Pre-departure briefings, travel documentation guidance, and basic relocation tips so you arrive at your destination fully prepared.",
-    bg: "bg-green-50 dark:bg-green-950/30",
-    iconColor: "text-green-600 dark:text-green-400",
-    highlight: false,
+      "Pre-departure briefings, travel documentation checks and practical relocation advice so arrival is not a shock.",
   },
 ];
 
@@ -48,278 +39,245 @@ const steps = [
   {
     icon: MessageSquare,
     step: "01",
-    title: "Initial Assessment",
+    title: "Initial assessment",
     description:
-      "We review your travel or study purpose, destination country, and personal documents to determine the right visa category for you.",
+      "We review your purpose of travel, destination and personal circumstances to identify the correct visa category.",
   },
   {
     icon: ClipboardList,
     step: "02",
-    title: "Document Checklist",
+    title: "Document checklist",
     description:
-      "We provide a tailored checklist of every document required by the embassy or consulate for your specific visa type.",
+      "You get a checklist built for your specific embassy and visa type — not a generic list that leaves gaps.",
   },
   {
     icon: FileCheck,
     step: "03",
-    title: "Document Preparation",
+    title: "Document preparation",
     description:
-      "Our team reviews and helps you prepare all supporting documents — financial statements, acceptance letters, itineraries, and more.",
+      "We review and help assemble financial statements, acceptance letters, itineraries and supporting evidence.",
   },
   {
     icon: ShieldCheck,
     step: "04",
-    title: "Application Review",
+    title: "Compliance review",
     description:
-      "Before submission we conduct a thorough compliance check to catch errors or missing items that could cause delays or refusals.",
+      "A full check before submission to catch the errors and omissions that cause most avoidable refusals.",
   },
   {
     icon: Send,
     step: "05",
-    title: "Submission & Tracking",
+    title: "Submission & tracking",
     description:
-      "We guide you through the submission process and follow up on your application status so nothing falls through the cracks.",
+      "We walk you through submission and biometrics, then follow the application so nothing stalls unnoticed.",
   },
   {
     icon: Star,
     step: "06",
-    title: "Pre-Departure Briefing",
+    title: "Pre-departure briefing",
     description:
-      "Once approved, we provide a pre-departure briefing — travel tips, what to expect at the border, and key contacts at your destination.",
+      "Once approved: travel tips, what to expect at the border, and who to contact at your destination.",
   },
 ];
 
 const documents = [
-  "Valid international passport (min. 6 months validity)",
+  "Valid international passport (at least 6 months' validity)",
   "Completed visa application form",
   "Recent passport-size photographs",
   "University acceptance letter (study visa)",
-  "Proof of financial means / bank statements",
-  "Travel itinerary or flight booking",
+  "Proof of funds and bank statements",
+  "Travel itinerary or flight reservation",
   "Accommodation confirmation",
-  "English proficiency certificate (where required)",
+  "English proficiency certificate, where required",
 ];
 
-const stats = [
-  { value: "98%", label: "Visa Success Rate" },
-  { value: "11+", label: "Countries Covered" },
-  { value: "500+", label: "Visas Processed" },
-  { value: "24h", label: "Response Time" },
+/**
+ * The "98% visa success rate" figure that used to headline this page has been
+ * replaced. It is a specific, checkable performance claim that we cannot
+ * evidence, and it sat directly beside a call to action — the exact placement
+ * that turns an unverified statistic into a misleading one. Restore it only
+ * with records to back it up.
+ */
+const facts = [
+  { value: "11", label: "Countries covered" },
+  { value: "500+", label: "Applicants supported" },
+  { value: "Same week", label: "Typical first response" },
+  { value: "End to end", label: "Documents to departure" },
 ];
 
 export default function VisaProcessingContent() {
-  const stepsRef = useRef(null);
-  const docsRef = useRef(null);
-  const stepsInView = useInView(stepsRef, { once: true, margin: "-80px" });
-  const docsInView = useInView(docsRef, { once: true, margin: "-80px" });
-
   return (
     <>
-      {/* Hero */}
-      <section className="relative pt-24 pb-16 gradient-bg overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-          }}
-          aria-hidden="true"
-        />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55 }}
-          >
-            <span className="inline-block text-sm font-bold text-emerald-300 uppercase tracking-widest mb-3">
-              Our Services
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-5 leading-tight">
-              Visa <span className="text-emerald-300">Processing</span>
-            </h1>
-            <p className="text-lg text-white/75 max-w-2xl mx-auto leading-relaxed mb-8">
-              Professional visa support with a{" "}
-              <span className="text-emerald-300 font-bold">98% success rate</span>. Study
-              visas, tourist visas, and full pre-departure guidance — handled by experts.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-white text-emerald-700 font-bold shadow-lg hover:bg-emerald-50 transition-colors"
-            >
-              Apply Now
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Our services"
+        title="Visa"
+        highlight="processing"
+        lede="Most refusals come down to paperwork that was avoidable. We prepare the file properly, check it twice, and prepare you for the interview."
+        crumbs={[
+          { href: "/services", label: "Services" },
+          { href: "/visa-processing", label: "Visa processing" },
+        ]}
+      >
+        <Link href="/contact" className="btn-primary">
+          Talk to a visa adviser
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
+      </PageHero>
 
-      {/* Stats */}
-      <section className="py-10 bg-white dark:bg-gray-950 border-b border-gray-100 dark:border-gray-800">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
-            {stats.map((s, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
-              >
-                <p className="text-3xl font-black text-emerald-600 dark:text-emerald-400">
-                  {s.value}
+      {/* Facts */}
+      <section className="section-tight" aria-label="Visa service at a glance">
+        <div className="shell">
+          <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+            {facts.map((f) => (
+              <li key={f.label} className="card reveal p-5 text-center">
+                <p className="font-display text-xl font-extrabold text-brand-700 sm:text-2xl dark:text-brand-300">
+                  {f.value}
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{s.label}</p>
-              </motion.div>
+                <p className="mt-1 text-sm text-ink-subtle">{f.label}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* Visa Types */}
-      <section className="section-padding bg-background">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
-              Visa Types
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white">
-              We Handle <span className="gradient-text">All Visa Categories</span>
+      {/* Visa types */}
+      <section className="section" aria-labelledby="visa-types-heading">
+        <div className="shell">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">What we handle</p>
+            <h2
+              id="visa-types-heading"
+              className="mt-3 text-(length:--text-h2) font-extrabold text-ink"
+            >
+              Visas we <span className="brand-text">work on</span>
             </h2>
           </div>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {visaTypes.map((v, i) => {
+
+          <ul className="mt-12 grid gap-4 sm:grid-cols-3">
+            {visaTypes.map((v) => {
               const Icon = v.icon;
               return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className={`rounded-2xl p-6 border transition-all hover:-translate-y-1 ${
-                    v.highlight
-                      ? "bg-gradient-to-br from-emerald-600 to-teal-700 border-transparent shadow-xl shadow-emerald-500/30 text-white"
-                      : "bg-white dark:bg-gray-900/80 border-gray-100 dark:border-gray-800 hover:border-emerald-200 dark:hover:border-emerald-800 hover:shadow-lg"
+                <li
+                  key={v.title}
+                  className={`reveal relative flex flex-col rounded-2xl border p-6 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg ${
+                    v.featured
+                      ? "border-transparent bg-brand-800 text-white shadow-lg"
+                      : "border-hairline bg-surface shadow-sm"
                   }`}
                 >
-                  {v.highlight && (
-                    <span className="inline-block text-xs font-bold bg-white/20 text-white px-2.5 py-1 rounded-full mb-3">
-                      Most Requested
-                    </span>
-                  )}
-                  <div
-                    className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
-                      v.highlight ? "bg-white/20" : v.bg
+                  <span
+                    className={`flex h-12 w-12 items-center justify-center rounded-xl ${
+                      v.featured ? "bg-white/15" : "bg-brand-50 dark:bg-brand-950/60"
                     }`}
                   >
                     <Icon
-                      className={`w-6 h-6 ${v.highlight ? "text-white" : v.iconColor}`}
+                      className={`h-6 w-6 ${
+                        v.featured ? "text-white" : "text-brand-700 dark:text-brand-300"
+                      }`}
                       aria-hidden="true"
                     />
-                  </div>
+                  </span>
                   <h3
-                    className={`text-base font-bold mb-2 ${
-                      v.highlight ? "text-white" : "text-gray-900 dark:text-white"
+                    className={`mt-5 font-display text-base font-bold ${
+                      v.featured ? "text-white" : "text-ink"
                     }`}
                   >
                     {v.title}
                   </h3>
                   <p
-                    className={`text-sm leading-relaxed ${
-                      v.highlight ? "text-white/80" : "text-gray-500 dark:text-gray-400"
+                    className={`mt-2 text-sm leading-relaxed ${
+                      v.featured ? "text-white/80" : "text-ink-subtle"
                     }`}
                   >
                     {v.description}
                   </p>
-                </motion.div>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </section>
 
       {/* Process */}
-      <section
-        ref={stepsRef}
-        className="section-padding bg-gray-50 dark:bg-gray-900/50"
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
-              How It Works
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white">
-              Our <span className="gradient-text">Visa Process</span>
+      <section className="section bg-surface-raised" aria-labelledby="visa-process-heading">
+        <div className="shell">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">How it works</p>
+            <h2
+              id="visa-process-heading"
+              className="mt-3 text-(length:--text-h2) font-extrabold text-ink"
+            >
+              Our <span className="brand-text">visa process</span>
             </h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {steps.map((s, i) => {
+
+          <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {steps.map((s) => {
               const Icon = s.icon;
               return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 28 }}
-                  animate={stepsInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: i * 0.09 }}
-                  className="relative rounded-2xl p-6 bg-white dark:bg-gray-900/80 border border-gray-100 dark:border-gray-800 hover:border-emerald-200 dark:hover:border-emerald-800 hover:shadow-lg transition-all"
-                >
-                  <span className="absolute top-5 right-5 text-3xl font-black text-emerald-100 dark:text-emerald-900 select-none">
+                <li key={s.step} className="card reveal relative p-6">
+                  <span
+                    className="absolute top-5 right-6 font-display text-3xl font-extrabold text-brand-100 select-none dark:text-brand-900"
+                    aria-hidden="true"
+                  >
                     {s.step}
                   </span>
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 bg-teal-50 dark:bg-teal-950/30">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-950/60">
                     <Icon
-                      className="w-5 h-5 text-teal-600 dark:text-teal-400"
+                      className="h-5 w-5 text-brand-700 dark:text-brand-300"
                       aria-hidden="true"
                     />
-                  </div>
-                  <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">
+                  </span>
+                  <h3 className="mt-4 font-display text-base font-bold text-ink">
                     {s.title}
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  <p className="mt-2 text-sm leading-relaxed text-ink-subtle">
                     {s.description}
                   </p>
-                </motion.div>
+                </li>
               );
             })}
-          </div>
+          </ol>
         </div>
       </section>
 
-      {/* Documents Required */}
-      <section ref={docsRef} className="section-padding bg-background">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={docsInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="rounded-2xl p-8 sm:p-10 bg-gradient-to-br from-teal-600 to-emerald-700 text-white shadow-xl shadow-teal-500/20"
-          >
-            <h2 className="text-2xl sm:text-3xl font-black mb-2">
-              Common Documents Required
-            </h2>
-            <p className="text-white/70 mb-7 text-sm">
-              Exact requirements vary by country. We'll give you a personalised checklist.
-            </p>
-            <ul className="grid sm:grid-cols-2 gap-3">
-              {documents.map((doc, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm">
-                  <CheckCircle
-                    className="w-5 h-5 shrink-0 text-emerald-300 mt-0.5"
-                    aria-hidden="true"
-                  />
-                  <span>{doc}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-teal-700 font-bold hover:bg-teal-50 transition-colors shadow-lg"
+      {/* Documents */}
+      <section className="section" aria-labelledby="documents-heading">
+        <div className="shell">
+          <div className="brand-gradient reveal relative isolate mx-auto max-w-4xl overflow-hidden rounded-3xl p-8 sm:p-10">
+            <div className="dot-field pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+            <div className="relative">
+              <h2
+                id="documents-heading"
+                className="text-(length:--text-h2) font-extrabold text-white"
               >
-                Get a Free Visa Assessment
+                Documents to have ready
+              </h2>
+              <p className="mt-3 text-sm text-white/70">
+                Requirements vary by country and visa class. This is the common
+                core — we&apos;ll give you the exact list for your case.
+              </p>
+
+              <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+                {documents.map((doc) => (
+                  <li key={doc} className="flex items-start gap-3">
+                    <span
+                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/15"
+                      aria-hidden="true"
+                    >
+                      <Check className="h-3 w-3 text-brand-300" />
+                    </span>
+                    <span className="text-sm text-white/85">{doc}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Link href="/contact" className="btn-primary mt-9">
+                Get your document checklist
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </>

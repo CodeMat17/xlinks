@@ -1,271 +1,302 @@
-import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
+import {
+  ArrowRight,
+  Check,
+  FileCheck,
+  GraduationCap,
+  Languages,
+  MessagesSquare,
+  PlaneTakeoff,
+  Route,
+  Send,
+} from "lucide-react";
 import PageWrapper from "@/components/PageWrapper";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
-import { ArrowRight, CheckCircle2, GraduationCap, FileCheck, Languages, Plane } from "lucide-react";
-import Image from "next/image";
-
-const Testimonials = dynamic(() => import("@/components/Testimonials"));
-
-function PhotoPlaceholder({
-  label = "Photo Placeholder",
-  hint = "Replace with your photo",
-  className = "",
-}: {
-  label?: string;
-  hint?: string;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-700 flex items-center justify-center ${className}`}>
-      <div className="text-center text-gray-400 dark:text-gray-600 p-8">
-        <div className="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center mx-auto mb-3">
-          <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-            />
-          </svg>
-        </div>
-        <p className="text-sm font-semibold">{label}</p>
-        <p className="text-xs mt-1">{hint}</p>
-      </div>
-    </div>
-  );
-}
+import Testimonials from "@/components/Testimonials";
+import { destinations } from "@/lib/site";
 
 const featuredServices = [
   {
     icon: GraduationCap,
-    title: "University Admissions",
+    title: "University admissions",
+    href: "/admissions",
     description:
-      "Expert guidance for applications at 50+ partner universities across 11 countries. We ensure your application stands out.",
-    color: "from-emerald-500 to-teal-600",
-    bg: "bg-emerald-50 dark:bg-emerald-950/30",
-    iconColor: "text-emerald-600 dark:text-emerald-400",
+      "Course and university shortlisting, application assembly, personal statements and offer follow-up across our partner institutions.",
   },
   {
     icon: FileCheck,
-    title: "Visa Processing",
+    title: "Visa processing",
+    href: "/visa-processing",
     description:
-      "Comprehensive visa support with a 98% success rate — document prep, interview coaching, and submission assistance.",
-    color: "from-teal-500 to-cyan-600",
-    bg: "bg-teal-50 dark:bg-teal-950/30",
-    iconColor: "text-teal-600 dark:text-teal-400",
+      "Document preparation, financial evidence review, interview coaching and submission support for study and visitor visas.",
   },
   {
     icon: Languages,
-    title: "Language Training",
+    title: "Language training",
+    href: "/services#language",
     description:
-      "Professional IELTS, French, German, and Spanish classes with certified trainers and proven pass records.",
-    color: "from-green-500 to-emerald-600",
-    bg: "bg-green-50 dark:bg-green-950/30",
-    iconColor: "text-green-600 dark:text-green-400",
+      "In-house IELTS preparation plus French, German and Spanish classes taught by certified instructors.",
   },
   {
-    icon: Plane,
-    title: "Tours & Travel",
+    icon: PlaneTakeoff,
+    title: "Travel & holidays",
+    href: "/services#destinations",
     description:
-      "Custom holiday and group tour packages worldwide — flights, hotels, visas, and airport transfers all arranged.",
-    color: "from-cyan-500 to-teal-600",
-    bg: "bg-cyan-50 dark:bg-cyan-950/30",
-    iconColor: "text-cyan-600 dark:text-cyan-400",
+      "Flights, hotels, airport transfers, travel insurance and tailored holiday or group tour packages.",
   },
 ];
 
-const whyChoosePoints = [
-  "Over 500 students successfully placed in universities abroad",
-  "98% visa approval rate — among the best in Nigeria",
-  "In-house language center for IELTS, French, German & Spanish",
-  "Partnerships with 50+ accredited universities in 11 countries",
-  "End-to-end support: admissions, visa, flights, accommodation & tours",
-  "Dedicated aftercare from Port Harcourt to your destination country",
+const whyPoints = [
+  "Over 500 students placed in universities abroad since 2023",
+  "End-to-end visa support: documents, coaching and submission",
+  "In-house language centre for IELTS, French, German and Spanish",
+  "Applications submitted to 50+ partner universities in 11 countries",
+  "One team for admissions, visas, flights, accommodation and tours",
+  "Aftercare that continues once you land in your destination country",
 ];
 
-const destinations = [
-  { flag: "🇬🇧", name: "UK" },
-  { flag: "🇨🇦", name: "Canada" },
-  { flag: "🇺🇸", name: "USA" },
-  { flag: "🇦🇺", name: "Australia" },
-  { flag: "🇮🇪", name: "Ireland" },
-  { flag: "🇲🇹", name: "Malta" },
-  { flag: "🇫🇮", name: "Finland" },
-  { flag: "🇦🇹", name: "Austria" },
-  { flag: "🇨🇳", name: "China" },
-  { flag: "🇨🇾", name: "Cyprus" },
-  { flag: "🇳🇿", name: "New Zealand" },
+const process = [
+  {
+    icon: MessagesSquare,
+    step: "01",
+    title: "Free consultation",
+    body: "We sit down with you — in the office or on a call — to understand your grades, budget and where you actually want to end up.",
+  },
+  {
+    icon: Route,
+    step: "02",
+    title: "Your shortlist",
+    body: "We map realistic courses, universities and countries against your profile, then agree the plan and the timeline together.",
+  },
+  {
+    icon: Send,
+    step: "03",
+    title: "Apply & prepare",
+    body: "We assemble and submit your applications, prepare your visa file, and run IELTS or language training if you need it.",
+  },
+  {
+    icon: PlaneTakeoff,
+    step: "04",
+    title: "Depart & settle",
+    body: "Flights, accommodation, insurance and airport pickup are arranged, and we stay reachable after you arrive.",
+  },
 ];
 
 export default function Home() {
   return (
     <PageWrapper>
-      {/* Hero */}
       <Hero />
-
-      {/* Stats */}
       <Stats />
 
-      {/* Why Choose Xlinks */}
-      <section className='section-padding bg-gradient-to-b from-emerald-50/50 to-background dark:from-emerald-950/20 dark:to-background'>
-        <div className='max-w-7xl mx-auto'>
-          <div className='grid lg:grid-cols-2 gap-12 items-center'>
-            {/* Photo placeholder */}
-            <div className='relative'>
-              {/* <PhotoPlaceholder
-                label="Office / Team Photo"
-                hint="Recommended: 800 × 600 px"
-                className="aspect-[4/3] shadow-2xl shadow-emerald-500/10"
-              /> */}
-              <div>
-                <Image
-                  alt='team_with_vice-president_international_affairs_for_Algoma_university_Canada'
-                  width={800}
-                  height={500}
-                  src='/team_with_vpresident.jpg'
-                  className='rounded-xl object-cover aspect-4/3'
-                />
-                <p className="absolute bg-linear-to-t from-black/80 to-black/30 p-4 bottom-0 text-sm text-white rounded-b-xl">Team with the Vice President of International Affairs and Recruitment for Algoma University, Canada, at the Partners Connect Summit in 2026.</p>
-              </div>
-              {/* <div className='absolute -bottom-5 -right-3 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-5 text-white shadow-xl shadow-emerald-500/30'>
-                <p className='text-3xl font-black leading-none'>500+</p>
-                <p className='text-xs font-semibold text-emerald-100 mt-1'>
-                  Students Placed
-                </p>
-              </div> */}
-            </div>
+      {/* ---------- Why Xlinks ---------- */}
+      <section className="section" aria-labelledby="why-heading">
+        <div className="shell">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <figure className="reveal relative m-0 overflow-hidden rounded-3xl shadow-lg">
+              <Image
+                src="/team_with_vpresident.jpg"
+                alt="The Xlinks team meeting the Vice President of International Affairs and Recruitment for Algoma University, Canada"
+                width={800}
+                height={600}
+                sizes="(min-width: 1024px) 45vw, 92vw"
+                className="aspect-4/3 w-full object-cover"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-linear-to-t from-brand-950 via-brand-950/85 to-transparent p-5 pt-12 text-sm text-white/85">
+                Our team with the Vice President of International Affairs and
+                Recruitment for Algoma University, Canada, at the Partners
+                Connect Summit.
+              </figcaption>
+            </figure>
 
-            {/* Content */}
             <div>
-              <span className='inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3'>
-                Why Choose Us
-              </span>
-              <h2 className='text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mb-5 leading-tight'>
-                Nigeria&apos;s Most Trusted{" "}
-                <span className='gradient-text'>
-                  Education &amp; Travel Partner
-                </span>
+              <p className="eyebrow">Why Xlinks</p>
+              <h2
+                id="why-heading"
+                className="mt-3 text-(length:--text-h2) font-extrabold text-ink"
+              >
+                One team, from the first question to{" "}
+                <span className="brand-text">the day you land</span>
               </h2>
-              <p className='text-gray-600 dark:text-gray-300 mb-7 leading-relaxed'>
-                Since September 2023, Xlinks Educational and Travel Consult has
-                been helping students and travelers from Port Harcourt and
-                across Nigeria achieve their international dreams — with
-                honesty, expertise, and genuine care.
+              <p className="lede mt-5">
+                Since September 2023 we have been helping students and
+                travellers from Port Harcourt and across Nigeria reach
+                universities and destinations abroad — without the guesswork,
+                the runaround, or the agent who disappears once the fee clears.
               </p>
 
-              <ul className='space-y-3 mb-8' aria-label='Why choose Xlinks'>
-                {whyChoosePoints.map((point, i) => (
-                  <li key={i} className='flex items-start gap-3'>
-                    <CheckCircle2
-                      className='w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5'
-                      aria-hidden='true'
-                    />
-                    <span className='text-sm text-gray-600 dark:text-gray-300'>
-                      {point}
+              <ul className="mt-8 space-y-3">
+                {whyPoints.map((point) => (
+                  <li key={point} className="flex items-start gap-3">
+                    <span
+                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-100 dark:bg-brand-900"
+                      aria-hidden="true"
+                    >
+                      <Check className="h-3 w-3 text-brand-700 dark:text-brand-300" />
                     </span>
+                    <span className="text-sm text-ink-muted">{point}</span>
                   </li>
                 ))}
               </ul>
 
-              <Link
-                href='/about'
-                className='inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 transition-all duration-200 hover:-translate-y-0.5'>
-                Learn More About Us
-                <ArrowRight className='w-5 h-5' aria-hidden='true' />
+              <Link href="/about" className="btn-secondary mt-9">
+                More about us
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Services */}
-      <section className='section-padding bg-background'>
-        <div className='max-w-7xl mx-auto'>
-          <div className='text-center mb-12'>
-            <span className='inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3'>
-              What We Offer
-            </span>
-            <h2 className='text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mb-4'>
-              Everything You Need,{" "}
-              <span className='gradient-text'>One Destination</span>
+      {/* ---------- Services ---------- */}
+      <section className="section bg-surface-raised" aria-labelledby="services-heading">
+        <div className="shell">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">What we do</p>
+            <h2
+              id="services-heading"
+              className="mt-3 text-(length:--text-h2) font-extrabold text-ink"
+            >
+              Everything the journey needs,{" "}
+              <span className="brand-text">under one roof</span>
             </h2>
-            <p className='text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto'>
-              From first enquiry to landing abroad and your next holiday —
-              Xlinks handles everything.
+            <p className="lede mt-4">
+              Four services that most people need together — so you are not
+              stitching together an agent, a tutor and a travel desk yourself.
             </p>
           </div>
 
-          <div className='grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10'>
-            {featuredServices.map((service, i) => {
+          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {featuredServices.map((service) => {
               const Icon = service.icon;
               return (
-                <div
-                  key={i}
-                  className='group bg-white dark:bg-gray-900/80 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:border-emerald-200 dark:hover:border-emerald-800 hover:shadow-lg transition-all duration-300 hover:-translate-y-1'>
-                  <div
-                    className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${service.bg}`}>
-                    <Icon
-                      className={`w-6 h-6 ${service.iconColor}`}
-                      aria-hidden='true'
-                    />
-                  </div>
-                  <h3 className='text-base font-bold text-gray-900 dark:text-white mb-2'>
-                    {service.title}
-                  </h3>
-                  <p className='text-sm text-gray-500 dark:text-gray-400 leading-relaxed'>
-                    {service.description}
-                  </p>
-                </div>
+                <li key={service.title} className="reveal">
+                  {/* Whole card is the link target — bigger hit area than a
+                      trailing "read more", and one tab stop instead of two. */}
+                  <Link
+                    href={service.href}
+                    className="card-interactive group flex h-full flex-col p-6"
+                  >
+                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 transition-colors group-hover:bg-brand-100 dark:bg-brand-950/60 dark:group-hover:bg-brand-900">
+                      <Icon
+                        className="h-6 w-6 text-brand-700 dark:text-brand-300"
+                        aria-hidden="true"
+                      />
+                    </span>
+                    <h3 className="mt-5 font-display text-base font-bold text-ink">
+                      {service.title}
+                    </h3>
+                    <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-subtle">
+                      {service.description}
+                    </p>
+                    <span className="mt-4 inline-flex items-center gap-1.5 font-display text-sm font-bold text-brand-700 dark:text-brand-300">
+                      Learn more
+                      <ArrowRight
+                        className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </Link>
+                </li>
               );
             })}
-          </div>
+          </ul>
 
-          <div className='text-center'>
-            <Link
-              href='/services'
-              className='inline-flex items-center gap-2 px-8 py-3.5 border-2 border-emerald-600 text-emerald-600 dark:text-emerald-400 dark:border-emerald-500 font-bold rounded-xl hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 dark:hover:text-white transition-all duration-200'>
-              View All Services
-              <ArrowRight className='w-5 h-5' aria-hidden='true' />
+          <div className="mt-10 text-center">
+            <Link href="/services" className="btn-outline">
+              See all services
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Destinations Strip */}
-      <section className='py-12 bg-gradient-to-r from-emerald-950 via-teal-900 to-emerald-900'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <p className='text-center text-emerald-300 font-bold uppercase tracking-widest text-sm mb-8'>
-            We Place Students &amp; Travelers in 11 Countries
-          </p>
-          <div className='flex flex-wrap justify-center gap-4'>
+      {/* ---------- Process ---------- */}
+      <section className="section" aria-labelledby="process-heading">
+        <div className="shell">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">How it works</p>
+            <h2
+              id="process-heading"
+              className="mt-3 text-(length:--text-h2) font-extrabold text-ink"
+            >
+              Four steps, <span className="brand-text">no surprises</span>
+            </h2>
+          </div>
+
+          <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {process.map((item) => {
+              const Icon = item.icon;
+              return (
+                <li key={item.step} className="card reveal relative p-6">
+                  <span
+                    className="font-display text-4xl font-extrabold text-brand-100 dark:text-brand-900"
+                    aria-hidden="true"
+                  >
+                    {item.step}
+                  </span>
+                  <Icon
+                    className="absolute top-6 right-6 h-6 w-6 text-brand-600 dark:text-brand-400"
+                    aria-hidden="true"
+                  />
+                  <h3 className="mt-3 font-display text-base font-bold text-ink">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-subtle">
+                    {item.body}
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
+      {/* ---------- Destinations ---------- */}
+      <section
+        className="brand-gradient relative isolate overflow-hidden"
+        aria-labelledby="destinations-heading"
+      >
+        <div className="dot-field pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+        <div className="shell relative py-16 sm:py-20">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="font-display text-(length:--text-eyebrow) font-bold tracking-[0.16em] text-brand-300 uppercase">
+              Where we send people
+            </p>
+            <h2
+              id="destinations-heading"
+              className="mt-3 text-(length:--text-h2) font-extrabold text-white"
+            >
+              Eleven destinations, one office
+            </h2>
+          </div>
+
+          <ul className="mx-auto mt-10 flex max-w-4xl flex-wrap justify-center gap-2.5">
             {destinations.map((d) => (
-              <div
-                key={d.name}
-                className='flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2'>
-                <span className='text-xl' aria-hidden='true'>
+              <li
+                key={d.code}
+                className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 backdrop-blur-sm"
+              >
+                <span className="text-lg" aria-hidden="true">
                   {d.flag}
                 </span>
-                <span className='text-sm font-semibold text-white'>
+                <span className="font-display text-sm font-semibold text-white">
                   {d.name}
                 </span>
-              </div>
+              </li>
             ))}
-          </div>
-          <div className='text-center mt-8'>
-            <Link
-              href='/services'
-              className='inline-flex items-center gap-2 px-6 py-3 bg-white text-emerald-700 font-bold rounded-xl hover:bg-emerald-50 transition-colors text-sm'>
-              Explore All Destinations
-              <ArrowRight className='w-4 h-4' aria-hidden='true' />
+          </ul>
+
+          <div className="mt-10 text-center">
+            <Link href="/services#destinations" className="btn-primary">
+              Explore destinations
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
       <Testimonials />
     </PageWrapper>
   );

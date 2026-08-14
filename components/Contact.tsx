@@ -1,90 +1,100 @@
 "use client";
-import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+
+import { useId, useRef, useState } from "react";
 import {
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
-  Send,
   CheckCircle2,
+  Clock,
+  Mail,
+  MapPin,
   MessageCircle,
+  Phone,
+  Send,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { contact, services as serviceNames } from "@/lib/site";
+
+const mapsUrl =
+  "https://maps.google.com/?q=No.+35+Ndele+Street+D-Line+Port+Harcourt+Nigeria";
 
 const contactInfo = [
   {
     icon: MapPin,
-    label: "Office Address",
-    value: "No. 35 Ndele Street, Bishop House, D-Line, Port Harcourt, Rivers State, Nigeria",
-    link: "https://maps.google.com/?q=No.+35+Ndele+Street+D-Line+Port+Harcourt+Nigeria",
+    label: "Office address",
+    value: `${contact.street}, ${contact.city}, ${contact.region}, ${contact.countryName}`,
+    href: mapsUrl,
+    external: true,
   },
   {
     icon: Phone,
     label: "Phone / WhatsApp",
-    value: "+234 913 452 3615",
-    link: "tel:+2349134523615",
+    value: contact.phone,
+    href: contact.phoneHref,
+    external: false,
   },
   {
     icon: Mail,
     label: "Email",
-    value: "info@xlinkseducationalandtravels.org",
-    link: "mailto:info@xlinkseducationalandtravels.org",
+    value: contact.email,
+    href: `mailto:${contact.email}`,
+    external: false,
   },
   {
     icon: Clock,
-    label: "Office Hours",
-    value: "Mon – Fri: 8:00am – 6:00pm  |  Sat: 9:00am – 3:00pm",
-    link: null,
+    label: "Office hours",
+    value: "Mon – Fri: 8:00 am – 6:00 pm · Sat: 9:00 am – 3:00 pm",
+    href: null,
+    external: false,
   },
 ];
 
-const services = [
-  "University Admissions",
-  "Visa Processing",
-  "IELTS Preparation",
-  "French Language",
-  "German Language",
-  "Spanish Language",
-  "Flight Booking",
-  "Tours & Holiday Packages",
-  "Accommodation & Hotel Booking",
-  "Airport Pickup",
-  "Document Authentication",
-  "Travel Insurance",
-  "General Enquiry",
-];
+const serviceOptions = [...serviceNames, "General Enquiry"];
+
+const emptyForm = {
+  name: "",
+  email: "",
+  phone: "",
+  service: "",
+  message: "",
+  company: "", // honeypot
+};
 
 export default function Contact() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState(emptyForm);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [error, setError] = useState<string | null>(null);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const errorRef = useRef<HTMLParagraphElement>(null);
+  const successRef = useRef<HTMLHeadingElement>(null);
+  const formId = useId();
+
+  const field = (key: keyof typeof form) => `${formId}-${key}`;
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const missingFields = () =>
+    [
+      !form.name.trim() && "your name",
+      !form.email.trim() && "your email address",
+      !form.message.trim() && "a message",
+    ].filter(Boolean) as string[];
+
+  const fail = (msg: string) => {
+    setError(msg);
+    // Move focus to the message so screen-reader users hear it immediately
+    // rather than discovering it only if they happen to navigate back up.
+    requestAnimationFrame(() => errorRef.current?.focus());
   };
 
   const handleWhatsApp = () => {
-    const missing = [
-      !form.name.trim() && "Full Name",
-      !form.email.trim() && "Email Address",
-      !form.message.trim() && "Message",
-    ].filter(Boolean);
-
-    if (missing.length > 0) {
-      setError(`Please fill in: ${missing.join(", ")}`);
+    const missing = missingFields();
+    if (missing.length) {
+      fail(`Please add ${missing.join(", ")} before sending.`);
       return;
     }
     setError(null);
@@ -96,307 +106,349 @@ export default function Contact() {
       form.service && `*Service:* ${form.service}`,
       `*Message:* ${form.message}`,
     ].filter(Boolean);
-    const text = `Hello Xlinks Educational & Travels, I'd like to enquire:\n\n${lines.join(
-      "\n"
-    )}`;
-    const url = `https://wa.me/2349134523615?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+
+    const text = `Hello Xlinks, I'd like to enquire:\n\n${lines.join("\n")}`;
+    window.open(
+      `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(text)}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+
+    const missing = missingFields();
+    if (missing.length) {
+      fail(`Please add ${missing.join(", ")} before sending.`);
+      return;
+    }
+
+    setStatus("sending");
     setError(null);
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Something went wrong.");
-      }
-      setSubmitted(true);
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) throw new Error(data.error || "Something went wrong.");
+
+      setStatus("sent");
+      setForm(emptyForm);
+      requestAnimationFrame(() => successRef.current?.focus());
+    } catch (err) {
+      setStatus("idle");
+      fail(
+        err instanceof Error
+          ? err.message
+          : "Something went wrong. Please try again.",
+      );
     }
   };
 
   return (
-    <section
-      id='contact'
-      className='section-padding bg-gradient-to-b from-emerald-50/50 to-background dark:from-emerald-950/20 dark:to-background'
-      aria-labelledby='contact-heading'
-      ref={ref}>
-      <div className='max-w-7xl mx-auto'>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className='text-center mb-14'>
-          <span className='inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3'>
-            Get In Touch
-          </span>
+    <section id="contact" className="section" aria-labelledby="contact-heading">
+      <div className="shell">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="eyebrow">Get in touch</p>
           <h2
-            id='contact-heading'
-            className='text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white mb-4'>
-            Start Your <span className='gradient-text'>Journey Today</span>
+            id="contact-heading"
+            className="mt-3 text-(length:--text-h2) font-extrabold text-ink"
+          >
+            Start your journey <span className="brand-text">today</span>
           </h2>
-          <p className='text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto'>
-            Ready to study abroad or plan your next trip? Fill in the form below
-            and one of our expert advisors will get back to you within 24 hours
-            — completely free consultation.
+          <p className="lede mt-4">
+            Tell us what you are planning. An adviser will come back to you —
+            the consultation is free and there is no obligation afterwards.
           </p>
-        </motion.div>
+        </div>
 
-        <div className='grid lg:grid-cols-5 gap-10'>
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className='lg:col-span-2 space-y-5'>
-            {contactInfo.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={i}
-                  className='flex flex-col sm:flex-row items-start gap-4 p-5 bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-emerald-200 dark:hover:border-emerald-800 hover:shadow-md transition-all duration-200'>
-                  <div className='w-11 h-11 rounded-xl bg-emerald-100 dark:bg-emerald-950/50 flex items-center justify-center flex-shrink-0'>
-                    <Icon
-                      className='w-5 h-5 text-emerald-600 dark:text-emerald-400'
-                      aria-hidden='true'
-                    />
-                  </div>
-                  <div className='min-w-0'>
-                    <p className='text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1'>
-                      {item.label}
-                    </p>
-                    {item.link ? (
-                      <a
-                        href={item.link}
-                        target={
-                          item.link.startsWith("http") ? "_blank" : undefined
-                        }
-                        rel={
-                          item.link.startsWith("http")
-                            ? "noopener noreferrer"
-                            : undefined
-                        }
-                        className='text-sm font-semibold text-gray-800 dark:text-gray-200 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors wrap-break-word'>
+        <div className="mt-12 grid gap-8 lg:grid-cols-5 lg:gap-10">
+          {/* ---------- Details ---------- */}
+          <div className="space-y-4 lg:col-span-2">
+            <ul className="space-y-4">
+              {contactInfo.map((item) => {
+                const Icon = item.icon;
+                const content = (
+                  <>
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-950/60">
+                      <Icon
+                        className="h-5 w-5 text-brand-700 dark:text-brand-300"
+                        aria-hidden="true"
+                      />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block font-display text-2xs font-bold tracking-[0.14em] text-ink-subtle uppercase">
+                        {item.label}
+                      </span>
+                      <span className="mt-1 block text-sm font-semibold wrap-break-word text-ink">
                         {item.value}
+                      </span>
+                    </span>
+                  </>
+                );
+
+                return (
+                  <li key={item.label}>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        {...(item.external
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                        className="card-interactive flex items-start gap-4 p-5"
+                      >
+                        {content}
                       </a>
                     ) : (
-                      <p className='text-sm font-semibold text-gray-800 dark:text-gray-200 wrap-break-word'>
-                        {item.value}
-                      </p>
+                      <div className="card flex items-start gap-4 p-5">
+                        {content}
+                      </div>
                     )}
-                  </div>
-                </div>
-              );
-            })}
+                  </li>
+                );
+              })}
+            </ul>
 
-            {/* Map embed placeholder */}
             <a
-              href='https://maps.google.com/?q=D-Line+Port+Harcourt+Nigeria'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='block relative rounded-2xl overflow-hidden bg-gradient-to-br from-emerald-800 to-teal-900 aspect-video hover:shadow-lg transition-shadow'
-              aria-label='View our location on Google Maps'>
-              <div className='absolute inset-0 flex flex-col items-center justify-center text-white p-6 text-center'>
-                <MapPin
-                  className='w-10 h-10 text-emerald-300 mb-3'
-                  aria-hidden='true'
-                />
-                <p className='font-bold text-base'>Find Us on the Map</p>
-                <p className='text-sm text-white/70 mt-1'>
-                  D-Line, Port Harcourt
-                </p>
-                <span className='mt-4 text-xs bg-white/20 px-3 py-1.5 rounded-full font-medium'>
-                  Open in Google Maps →
-                </span>
-              </div>
+              href={mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="brand-gradient relative flex aspect-video flex-col items-center justify-center overflow-hidden rounded-2xl p-6 text-center transition-shadow hover:shadow-lg"
+            >
+              <MapPin className="h-9 w-9 text-brand-300" aria-hidden="true" />
+              <span className="mt-3 font-display text-base font-bold text-white">
+                Find us on the map
+              </span>
+              <span className="mt-1 text-sm text-white/70">
+                D-Line, Port Harcourt
+              </span>
+              <span className="mt-4 rounded-full bg-white/15 px-3 py-1.5 text-xs font-medium text-white">
+                Open in Google Maps
+              </span>
             </a>
-          </motion.div>
+          </div>
 
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className='lg:col-span-3'>
-            <div className='bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-100 dark:border-gray-800 shadow-sm'>
-              {submitted ? (
-                <div className='flex flex-col items-center justify-center py-12 text-center'>
+          {/* ---------- Form ---------- */}
+          <div className="lg:col-span-3">
+            <div className="card p-6 sm:p-8">
+              {status === "sent" ? (
+                <div className="flex flex-col items-center py-12 text-center">
                   <CheckCircle2
-                    className='w-16 h-16 text-emerald-500 mb-4'
-                    aria-hidden='true'
+                    className="h-14 w-14 text-brand-600 dark:text-brand-400"
+                    aria-hidden="true"
                   />
-                  <h3 className='text-2xl font-black text-gray-900 dark:text-white mb-2'>
-                    Message Sent!
+                  <h3
+                    ref={successRef}
+                    tabIndex={-1}
+                    className="mt-4 font-display text-xl font-extrabold text-ink outline-none"
+                  >
+                    Message sent
                   </h3>
-                  <p className='text-gray-500 dark:text-gray-400 mb-6'>
-                    Your enquiry has been sent to our team. We will respond
-                    within 24 hours.
+                  <p className="mt-2 max-w-sm text-sm text-ink-muted">
+                    Your enquiry is with our team. We normally reply within one
+                    working day.
                   </p>
                   <button
-                    onClick={() => setSubmitted(false)}
-                    className='px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold rounded-xl'>
-                    Send Another Message
+                    type="button"
+                    onClick={() => setStatus("idle")}
+                    className="btn-secondary mt-7"
+                  >
+                    Send another message
                   </button>
                 </div>
               ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  noValidate
-                  aria-label='Contact form'>
-                  <h3 className='text-xl font-black text-gray-900 dark:text-white mb-6'>
-                    Book a Free Consultation
+                <form onSubmit={handleSubmit} noValidate>
+                  <h3 className="font-display text-lg font-extrabold text-ink">
+                    Book a free consultation
                   </h3>
-                  <div className='grid sm:grid-cols-2 gap-4 mb-4'>
-                    <div className='space-y-1.5'>
-                      <Label htmlFor='name' className='font-bold'>
-                        Full Name *
+
+                  <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <Label htmlFor={field("name")} className="font-bold">
+                        Full name{" "}
+                        <span className="text-brand-700 dark:text-brand-300">*</span>
                       </Label>
                       <Input
-                        id='name'
-                        name='name'
-                        type='text'
+                        id={field("name")}
+                        name="name"
+                        type="text"
                         required
-                        autoComplete='name'
+                        maxLength={120}
+                        autoComplete="name"
                         value={form.name}
                         onChange={handleChange}
-                        placeholder='Your full name'
-                        className='py-4.5'
+                        placeholder="Your full name"
                       />
                     </div>
-                    <div className='space-y-1.5'>
-                      <Label htmlFor='email' className='font-bold'>
-                        Email Address *
+
+                    <div className="space-y-1.5">
+                      <Label htmlFor={field("email")} className="font-bold">
+                        Email address{" "}
+                        <span className="text-brand-700 dark:text-brand-300">*</span>
                       </Label>
                       <Input
-                        id='email'
-                        name='email'
-                        type='email'
+                        id={field("email")}
+                        name="email"
+                        type="email"
                         required
-                        autoComplete='email'
+                        maxLength={200}
+                        autoComplete="email"
                         value={form.email}
                         onChange={handleChange}
-                        placeholder='you@example.com'
-                        className='py-4.5'
+                        placeholder="you@example.com"
                       />
                     </div>
-                  </div>
-                  <div className='grid sm:grid-cols-2 gap-4 mb-4'>
-                    <div className='space-y-1.5'>
-                      <Label htmlFor='phone' className='font-bold'>
+
+                    <div className="space-y-1.5">
+                      <Label htmlFor={field("phone")} className="font-bold">
                         Phone / WhatsApp
                       </Label>
                       <Input
-                        id='phone'
-                        name='phone'
-                        type='tel'
-                        autoComplete='tel'
+                        id={field("phone")}
+                        name="phone"
+                        type="tel"
+                        maxLength={40}
+                        autoComplete="tel"
                         value={form.phone}
                         onChange={handleChange}
-                        placeholder='+234 xxx xxx xxxx'
-                        className='py-4.5'
+                        placeholder="+234 000 000 0000"
                       />
                     </div>
-                    <div className='space-y-1.5'>
-                      <Label htmlFor='service' className='font-bold'>
-                        Service of Interest
+
+                    <div className="space-y-1.5">
+                      <Label htmlFor={field("service")} className="font-bold">
+                        Service of interest
                       </Label>
-                      <Select
+                      {/* Native <select>: the Radix trigger was not a real form
+                          control, so the value never took part in validation or
+                          autofill, and mobile lost the OS picker. */}
+                      <select
+                        id={field("service")}
+                        name="service"
                         value={form.service}
-                        onValueChange={(v) =>
-                          setForm((prev) => ({ ...prev, service: v }))
-                        }>
-                        <SelectTrigger id='service' className='w-full py-4.5'>
-                          <SelectValue placeholder='Select a service' />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {services.map((s) => (
-                            <SelectItem key={s} value={s}>
-                              {s}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                        onChange={handleChange}
+                        className="h-10 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base text-ink shadow-xs transition-colors outline-none focus-visible:border-ring md:text-sm"
+                      >
+                        <option value="">Select a service</option>
+                        {serviceOptions.map((s) => (
+                          <option key={s} value={s}>
+                            {s}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
-                  <div className='mb-6 space-y-1.5'>
-                    <Label htmlFor='message' className='font-bold'>
-                      Your Message *
+
+                  <div className="mt-4 space-y-1.5">
+                    <Label htmlFor={field("message")} className="font-bold">
+                      Your message{" "}
+                      <span className="text-brand-700 dark:text-brand-300">*</span>
                     </Label>
                     <Textarea
-                      id='message'
-                      name='message'
+                      id={field("message")}
+                      name="message"
                       required
                       rows={5}
+                      maxLength={5000}
                       value={form.message}
                       onChange={handleChange}
-                      placeholder='Tell us about your study abroad or travel plans, your destination of interest, and any questions you have...'
-                      className='resize-none'
+                      placeholder="Tell us about your study or travel plans, where you'd like to go, and anything you're unsure about."
+                      className="resize-y"
                     />
                   </div>
-                  <div className='flex flex-col sm:flex-row gap-3'>
+
+                  {/* Honeypot. Hidden from sight and from assistive tech, but
+                      still filled in by naive bots. */}
+                  <div className="sr-only" aria-hidden="true">
+                    <label htmlFor={field("company")}>
+                      Company (leave this empty)
+                    </label>
+                    <input
+                      id={field("company")}
+                      name="company"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={form.company}
+                      onChange={handleChange}
+                    />
+                  </div>
+
+                  <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                     <button
-                      type='submit'
-                      disabled={loading}
-                      className='flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 disabled:opacity-60 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 hover:shadow-emerald-500/50 transition-all duration-200 hover:-translate-y-0.5 text-base'>
-                      {loading ? (
-                        <span className='flex items-center gap-2'>
+                      type="submit"
+                      disabled={status === "sending"}
+                      className="btn-primary flex-1 py-3.5 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {status === "sending" ? (
+                        <>
                           <svg
-                            className='animate-spin w-5 h-5'
-                            viewBox='0 0 24 24'
-                            fill='none'
-                            aria-hidden='true'>
+                            className="h-5 w-5 animate-spin"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            aria-hidden="true"
+                          >
                             <circle
-                              className='opacity-25'
-                              cx='12'
-                              cy='12'
-                              r='10'
-                              stroke='currentColor'
-                              strokeWidth='4'
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
                             />
                             <path
-                              className='opacity-75'
-                              fill='currentColor'
-                              d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z'
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                             />
                           </svg>
-                          Sending...
-                        </span>
+                          Sending…
+                        </>
                       ) : (
                         <>
-                          Send via Email
-                          <Send className='w-5 h-5' aria-hidden='true' />
+                          Send by email
+                          <Send className="h-4 w-4" aria-hidden="true" />
                         </>
                       )}
                     </button>
+
                     <button
-                      type='button'
+                      type="button"
                       onClick={handleWhatsApp}
-                      className='flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-[#25D366] hover:bg-[#1ebe5a] text-white font-bold rounded-xl shadow-lg shadow-[#25D366]/30 hover:shadow-[#25D366]/50 transition-all duration-200 hover:-translate-y-0.5 text-base'>
-                      Send via WhatsApp
-                      <MessageCircle className='w-5 h-5' aria-hidden='true' />
+                      className="btn flex-1 bg-[#25D366] py-3.5 text-white shadow-md hover:-translate-y-0.5 hover:bg-[#1ebe5a] hover:shadow-lg"
+                    >
+                      Send by WhatsApp
+                      <MessageCircle className="h-4 w-4" aria-hidden="true" />
                     </button>
                   </div>
-                  {error && (
-                    <p className='text-sm text-red-500 text-center mt-3'>{error}</p>
-                  )}
-                  <p className='text-xs text-gray-400 dark:text-gray-600 text-center mt-3'>
-                    Free consultation • No commitment required • Response within
-                    24 hours
+
+                  {/* Live region is always present so the message is announced
+                      when it appears, not just when the node is created. */}
+                  <div role="alert" aria-live="assertive" className="mt-4">
+                    {error && (
+                      <p
+                        ref={errorRef}
+                        tabIndex={-1}
+                        className="rounded-xl bg-destructive/10 px-4 py-3 text-center text-sm font-medium text-destructive outline-none"
+                      >
+                        {error}
+                      </p>
+                    )}
+                  </div>
+
+                  <p className="mt-3 text-center text-xs text-ink-subtle">
+                    Free consultation · No obligation · We reply within one
+                    working day
                   </p>
                 </form>
               )}
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

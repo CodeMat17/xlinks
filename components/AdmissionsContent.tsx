@@ -1,42 +1,36 @@
-"use client";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import {
-  GraduationCap,
-  FileText,
-  BookOpen,
-  Award,
-  CheckCircle,
-  Users,
-  Lightbulb,
-  ClipboardList,
-} from "lucide-react";
 import Link from "next/link";
+import {
+  ArrowRight,
+  Award,
+  BookOpen,
+  Check,
+  CheckCircle,
+  ClipboardList,
+  FileText,
+  GraduationCap,
+  Lightbulb,
+  Users,
+} from "lucide-react";
+import PageHero from "@/components/PageHero";
 
 const programs = [
   {
     icon: BookOpen,
-    title: "Undergraduate Programs",
+    title: "Undergraduate",
     description:
-      "Start your academic journey with our curated selection of bachelor's degree programs across 50+ partner universities in 11 countries.",
-    bg: "bg-emerald-50 dark:bg-emerald-950/30",
-    iconColor: "text-emerald-600 dark:text-emerald-400",
+      "Bachelor's degrees across our partner universities in eleven countries, matched to your WAEC/NECO results and budget.",
   },
   {
     icon: Award,
-    title: "Postgraduate Programs",
+    title: "Postgraduate",
     description:
-      "Advance your career with Masters and PhD programs tailored to your field of expertise. We match you with the right institution and course.",
-    bg: "bg-teal-50 dark:bg-teal-950/30",
-    iconColor: "text-teal-600 dark:text-teal-400",
+      "Master's and PhD programmes chosen around your field, your funding and the post-study work rights of each country.",
   },
   {
     icon: GraduationCap,
-    title: "Diploma & Foundation",
+    title: "Diploma & foundation",
     description:
-      "Pathway and foundation programs designed to bridge the gap and prepare you for full degree entry at top universities.",
-    bg: "bg-green-50 dark:bg-green-950/30",
-    iconColor: "text-green-600 dark:text-green-400",
+      "Pathway and foundation routes for applicants who don't yet meet direct entry — a legitimate way in, not a detour.",
   },
 ];
 
@@ -44,230 +38,192 @@ const steps = [
   {
     icon: Lightbulb,
     step: "01",
-    title: "Free Consultation",
+    title: "Free consultation",
     description:
-      "We assess your academic background, interests, and career goals to identify the best-fit universities and programs for you.",
+      "We go through your academic record, your budget and your goals, and tell you plainly what is realistic.",
   },
   {
     icon: ClipboardList,
     step: "02",
-    title: "Course & University Selection",
+    title: "Course & university shortlist",
     description:
-      "Our advisors shortlist programs and institutions that match your profile, budget, and preferred destination country.",
+      "We shortlist programmes and institutions that fit your profile and your preferred destination — usually a mix of ambitious and safe.",
   },
   {
     icon: FileText,
     step: "03",
-    title: "Documentation & SOP",
+    title: "Documents & statement",
     description:
-      "We guide you in preparing transcripts, references, English proficiency scores (IELTS/equivalent), and a compelling Statement of Purpose.",
+      "Transcripts, references, English proficiency scores and a statement of purpose that reads like you rather than a template.",
   },
   {
     icon: Users,
     step: "04",
-    title: "Application Submission",
+    title: "Submission",
     description:
-      "We handle the full application process — form filling, document review, compliance checks, and timely submission to your chosen institutions.",
+      "We complete the forms, run compliance checks on every document, and submit to each institution before its deadline.",
   },
   {
     icon: CheckCircle,
     step: "05",
-    title: "Offer & Follow-Up",
+    title: "Offers & follow-up",
     description:
-      "After submission we track your application, assist with interview preparation if required, and help you evaluate and accept your offer.",
+      "We chase the universities, prepare you for any interview, and help you compare offers before you accept one.",
   },
   {
     icon: Award,
     step: "06",
-    title: "Scholarship Guidance",
+    title: "Scholarships & funding",
     description:
-      "We identify scholarship and funding opportunities to reduce the financial burden of your studies abroad.",
+      "We flag the scholarships and bursaries you are actually eligible for, and help you assemble the applications.",
   },
 ];
 
 const requirements = [
   "Academic transcripts and certificates",
-  "English proficiency scores (IELTS, TOEFL, or equivalent)",
-  "Personal statement / Statement of Purpose",
+  "English proficiency score (IELTS, TOEFL or equivalent)",
+  "Personal statement or statement of purpose",
   "Letters of recommendation",
   "Valid international passport",
   "Completed application forms",
 ];
 
 export default function AdmissionsContent() {
-  const heroRef = useRef(null);
-  const stepsRef = useRef(null);
-  const reqRef = useRef(null);
-  const stepsInView = useInView(stepsRef, { once: true, margin: "-80px" });
-  const reqInView = useInView(reqRef, { once: true, margin: "-80px" });
-
   return (
     <>
-      {/* Hero */}
-      <section
-        ref={heroRef}
-        className="relative pt-24 pb-16 gradient-bg overflow-hidden"
+      <PageHero
+        eyebrow="Our services"
+        title="University"
+        highlight="admissions"
+        lede="From choosing a course that actually fits to holding the offer letter — we do the work and keep you informed at every stage."
+        crumbs={[
+          { href: "/services", label: "Services" },
+          { href: "/admissions", label: "Admissions" },
+        ]}
       >
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-          }}
-          aria-hidden="true"
-        />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55 }}
-          >
-            <span className="inline-block text-sm font-bold text-emerald-300 uppercase tracking-widest mb-3">
-              Our Services
-            </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-5 leading-tight">
-              University{" "}
-              <span className="text-emerald-300">Admissions</span>
-            </h1>
-            <p className="text-lg text-white/75 max-w-2xl mx-auto leading-relaxed mb-8">
-              From choosing the right program to receiving your offer letter —
-              we guide you every step of the way to your dream university.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-white text-emerald-700 font-bold shadow-lg hover:bg-emerald-50 transition-colors"
-            >
-              Start Your Application
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+        <Link href="/contact" className="btn-primary">
+          Start your application
+          <ArrowRight className="h-4 w-4" aria-hidden="true" />
+        </Link>
+      </PageHero>
 
-      {/* Programs */}
-      <section className="section-padding bg-background">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
-              Programs We Cover
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white">
-              Find Your Perfect{" "}
-              <span className="gradient-text">Academic Path</span>
+      {/* Programmes */}
+      <section className="section" aria-labelledby="programs-heading">
+        <div className="shell">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">Programmes we cover</p>
+            <h2
+              id="programs-heading"
+              className="mt-3 text-(length:--text-h2) font-extrabold text-ink"
+            >
+              Find the right <span className="brand-text">academic route</span>
             </h2>
           </div>
-          <div className="grid sm:grid-cols-3 gap-6">
-            {programs.map((p, i) => {
+
+          <ul className="mt-12 grid gap-4 sm:grid-cols-3">
+            {programs.map((p) => {
               const Icon = p.icon;
               return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="rounded-2xl p-6 bg-white dark:bg-gray-900/80 border border-gray-100 dark:border-gray-800 hover:border-emerald-200 dark:hover:border-emerald-800 hover:shadow-lg transition-all"
-                >
-                  <div
-                    className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${p.bg}`}
-                  >
-                    <Icon className={`w-6 h-6 ${p.iconColor}`} aria-hidden="true" />
-                  </div>
-                  <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">
+                <li key={p.title} className="card-interactive reveal p-6">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-950/60">
+                    <Icon
+                      className="h-6 w-6 text-brand-700 dark:text-brand-300"
+                      aria-hidden="true"
+                    />
+                  </span>
+                  <h3 className="mt-5 font-display text-base font-bold text-ink">
                     {p.title}
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  <p className="mt-2 text-sm leading-relaxed text-ink-subtle">
                     {p.description}
                   </p>
-                </motion.div>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </section>
 
       {/* Process */}
-      <section
-        ref={stepsRef}
-        className="section-padding bg-gray-50 dark:bg-gray-900/50"
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="inline-block text-sm font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest mb-3">
-              How It Works
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white">
-              Our <span className="gradient-text">Admissions Process</span>
+      <section className="section bg-surface-raised" aria-labelledby="admissions-process-heading">
+        <div className="shell">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="eyebrow">How it works</p>
+            <h2
+              id="admissions-process-heading"
+              className="mt-3 text-(length:--text-h2) font-extrabold text-ink"
+            >
+              Our <span className="brand-text">admissions process</span>
             </h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {steps.map((s, i) => {
+
+          <ol className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {steps.map((s) => {
               const Icon = s.icon;
               return (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 28 }}
-                  animate={stepsInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: i * 0.09 }}
-                  className="relative rounded-2xl p-6 bg-white dark:bg-gray-900/80 border border-gray-100 dark:border-gray-800 hover:border-emerald-200 dark:hover:border-emerald-800 hover:shadow-lg transition-all"
-                >
-                  <span className="absolute top-5 right-5 text-3xl font-black text-emerald-100 dark:text-emerald-900 select-none">
+                <li key={s.step} className="card reveal relative p-6">
+                  <span
+                    className="absolute top-5 right-6 font-display text-3xl font-extrabold text-brand-100 select-none dark:text-brand-900"
+                    aria-hidden="true"
+                  >
                     {s.step}
                   </span>
-                  <div className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 bg-emerald-50 dark:bg-emerald-950/30">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-950/60">
                     <Icon
-                      className="w-5 h-5 text-emerald-600 dark:text-emerald-400"
+                      className="h-5 w-5 text-brand-700 dark:text-brand-300"
                       aria-hidden="true"
                     />
-                  </div>
-                  <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">
+                  </span>
+                  <h3 className="mt-4 font-display text-base font-bold text-ink">
                     {s.title}
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  <p className="mt-2 text-sm leading-relaxed text-ink-subtle">
                     {s.description}
                   </p>
-                </motion.div>
+                </li>
               );
             })}
-          </div>
+          </ol>
         </div>
       </section>
 
       {/* Requirements */}
-      <section ref={reqRef} className="section-padding bg-background">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={reqInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="rounded-2xl p-8 sm:p-10 bg-gradient-to-br from-emerald-600 to-teal-700 text-white shadow-xl shadow-emerald-500/20"
-          >
-            <h2 className="text-2xl sm:text-3xl font-black mb-2">
-              Typical Requirements
-            </h2>
-            <p className="text-white/70 mb-7 text-sm">
-              Documents most universities require. We help you prepare every one.
-            </p>
-            <ul className="grid sm:grid-cols-2 gap-3">
-              {requirements.map((req, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm">
-                  <CheckCircle
-                    className="w-5 h-5 shrink-0 text-emerald-300 mt-0.5"
-                    aria-hidden="true"
-                  />
-                  <span>{req}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-8">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white text-emerald-700 font-bold hover:bg-emerald-50 transition-colors shadow-lg"
+      <section className="section" aria-labelledby="requirements-heading">
+        <div className="shell">
+          <div className="brand-gradient reveal relative isolate mx-auto max-w-4xl overflow-hidden rounded-3xl p-8 sm:p-10">
+            <div className="dot-field pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+            <div className="relative">
+              <h2
+                id="requirements-heading"
+                className="text-(length:--text-h2) font-extrabold text-white"
               >
-                Book a Free Consultation
+                What you&apos;ll need
+              </h2>
+              <p className="mt-3 text-sm text-white/70">
+                The documents most universities ask for. We help you prepare
+                every one of them.
+              </p>
+
+              <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+                {requirements.map((req) => (
+                  <li key={req} className="flex items-start gap-3">
+                    <span
+                      className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/15"
+                      aria-hidden="true"
+                    >
+                      <Check className="h-3 w-3 text-brand-300" />
+                    </span>
+                    <span className="text-sm text-white/85">{req}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Link href="/contact" className="btn-primary mt-9">
+                Book a free consultation
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </>
